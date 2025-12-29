@@ -1,21 +1,71 @@
+import 'package:hive/hive.dart';
+
+part 'onomatopoeia_model.g.dart'; // Generated file
+
+@HiveType(typeId: 0)
 class Onomatopoeia {
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String japanese;
+
+  @HiveField(2)
   final String romaji;
+
+  @HiveField(3)
   final String meaning;
+
+  @HiveField(4)
   final String category;
+
+  @HiveField(5)
   final String subCategory;
+
+  @HiveField(6)
   final String exampleSentence;
+
+  @HiveField(7)
   final String exampleTranslation;
+
+  @HiveField(8)
   final String soundType;
+
+  @HiveField(9)
   final String usageContext;
+
+  @HiveField(10)
   final List<String> similarWords;
+
+  @HiveField(11)
   final String soundPath;
+
+  @HiveField(12)
   final int difficulty;
-  final bool isFavorite;
-  final int viewCount;
-  final DateTime addedDate;
-  final double mastery;
+
+  @HiveField(13)
+  bool isFavorite;
+
+  @HiveField(14)
+  int viewCount;
+
+  @HiveField(15)
+  int practiceCount;
+
+  @HiveField(16)
+  DateTime addedDate;
+
+  @HiveField(17)
+  double mastery;
+
+  @HiveField(18)
+  DateTime? lastPracticed;
+
+  @HiveField(19)
+  final String imagePath;
+
+  @HiveField(20)
+  final List<String> tags;
 
   Onomatopoeia({
     required this.id,
@@ -33,8 +83,12 @@ class Onomatopoeia {
     this.difficulty = 1,
     this.isFavorite = false,
     this.viewCount = 0,
+    this.practiceCount = 0,
     DateTime? addedDate,
     this.mastery = 0.0,
+    this.lastPracticed,
+    this.imagePath = '',
+    this.tags = const [],
   }) : addedDate = addedDate ?? DateTime.now();
 
   factory Onomatopoeia.fromJson(Map<String, dynamic> json) {
@@ -54,10 +108,16 @@ class Onomatopoeia {
       difficulty: json['difficulty'] ?? 1,
       isFavorite: json['isFavorite'] ?? false,
       viewCount: json['viewCount'] ?? 0,
+      practiceCount: json['practiceCount'] ?? 0,
       addedDate: json['addedDate'] != null
           ? DateTime.parse(json['addedDate'])
           : DateTime.now(),
       mastery: (json['mastery'] ?? 0.0).toDouble(),
+      lastPracticed: json['lastPracticed'] != null
+          ? DateTime.parse(json['lastPracticed'])
+          : null,
+      imagePath: json['imagePath'] ?? '',
+      tags: List<String>.from(json['tags'] ?? []),
     );
   }
 
@@ -78,8 +138,12 @@ class Onomatopoeia {
       'difficulty': difficulty,
       'isFavorite': isFavorite,
       'viewCount': viewCount,
+      'practiceCount': practiceCount,
       'addedDate': addedDate.toIso8601String(),
       'mastery': mastery,
+      'lastPracticed': lastPracticed?.toIso8601String(),
+      'imagePath': imagePath,
+      'tags': tags,
     };
   }
 
@@ -99,8 +163,12 @@ class Onomatopoeia {
     int? difficulty,
     bool? isFavorite,
     int? viewCount,
+    int? practiceCount,
     DateTime? addedDate,
     double? mastery,
+    DateTime? lastPracticed,
+    String? imagePath,
+    List<String>? tags,
   }) {
     return Onomatopoeia(
       id: id ?? this.id,
@@ -118,8 +186,29 @@ class Onomatopoeia {
       difficulty: difficulty ?? this.difficulty,
       isFavorite: isFavorite ?? this.isFavorite,
       viewCount: viewCount ?? this.viewCount,
+      practiceCount: practiceCount ?? this.practiceCount,
       addedDate: addedDate ?? this.addedDate,
       mastery: mastery ?? this.mastery,
+      lastPracticed: lastPracticed ?? this.lastPracticed,
+      imagePath: imagePath ?? this.imagePath,
+      tags: tags ?? this.tags,
     );
+  }
+
+  void incrementViewCount() {
+    viewCount++;
+  }
+
+  void incrementPracticeCount() {
+    practiceCount++;
+    lastPracticed = DateTime.now();
+    mastery = (mastery + 0.1).clamp(0.0, 1.0);
+  }
+
+  String get masteryLevel {
+    if (mastery < 0.3) return 'Beginner';
+    if (mastery < 0.6) return 'Intermediate';
+    if (mastery < 0.9) return 'Advanced';
+    return 'Master';
   }
 }

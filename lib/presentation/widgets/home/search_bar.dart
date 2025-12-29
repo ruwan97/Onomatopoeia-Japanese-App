@@ -33,15 +33,27 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     _focusNode.unfocus();
   }
 
+  // Helper method to get color with opacity
+  Color _getColorWithOpacity(Color color, double opacity) {
+    return Color.fromARGB(
+      ((color.a * 255.0) * opacity).round().clamp(0, 255),
+      (color.r * 255.0).round().clamp(0, 255),
+      (color.g * 255.0).round().clamp(0, 255),
+      (color.b * 255.0).round().clamp(0, 255),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final onSurfaceColor = Theme.of(context).colorScheme.onSurface;
+
     return TextField(
       controller: _controller,
       focusNode: _focusNode,
       decoration: InputDecoration(
         hintText: 'Search onomatopoeia...',
         hintStyle: AppTextStyles.bodyMedium.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+          color: _getColorWithOpacity(onSurfaceColor, 0.5),
         ),
         prefixIcon: Icon(
           Icons.search,
@@ -51,7 +63,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             ? IconButton(
           icon: Icon(
             Icons.clear,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+            color: _getColorWithOpacity(onSurfaceColor, 0.5),
           ),
           onPressed: _clearSearch,
         )

@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends StatelessWidget {
   final int currentIndex;
+  final ValueChanged<int> onTabSelected;
 
   const BottomNavBar({
     super.key,
     required this.currentIndex,
+    required this.onTabSelected,
   });
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      selectedIndex: widget.currentIndex,
-      onDestinationSelected: (index) {
-        _navigateToPage(index, context);
-      },
+      selectedIndex: currentIndex,
+      onDestinationSelected: onTabSelected,
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home_outlined),
@@ -43,22 +38,5 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
       ],
     );
-  }
-
-  void _navigateToPage(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-      // Already on home
-        break;
-      case 1:
-      // Navigate to explore
-        break;
-      case 2:
-      // Navigate to library
-        break;
-      case 3:
-      // Navigate to profile
-        break;
-    }
   }
 }

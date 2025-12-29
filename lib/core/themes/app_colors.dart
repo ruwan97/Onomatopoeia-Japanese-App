@@ -44,6 +44,9 @@ class AppColors {
   static const Color humanColor = Color(0xFFE91E63);
   static const Color objectColor = Color(0xFF9C27B0);
   static const Color foodColor = Color(0xFFFF5722);
+  static const Color vehicleColor = Color(0xFF2196F3);
+  static const Color musicColor = Color(0xFF009688);
+  static const Color technologyColor = Color(0xFF607D8B);
 
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(
@@ -64,26 +67,57 @@ class AppColors {
     end: Alignment.bottomRight,
   );
 
-  // Glassmorphism effect
-  static Color glassWhite = Colors.white.withOpacity(0.1);
-  static Color glassBlack = Colors.black.withOpacity(0.1);
+  // Glassmorphism effect - Using withValues() instead of withOpacity()
+  static Color get glassWhite => const Color(0xFFFFFFFF).withValues(alpha: 0.1);
+  static Color get glassBlack => const Color(0xFF000000).withValues(alpha: 0.1);
 
-  // Shadows
-  static List<BoxShadow> cardShadow = [
+  // Alternative approach: define as methods
+  static Color glassWhiteOpacity(double opacity) => const Color(0xFFFFFFFF).withValues(alpha: opacity);
+  static Color glassBlackOpacity(double opacity) => const Color(0xFF000000).withValues(alpha: opacity);
+
+  // Common opacity values as static getters
+  static Color get glassWhite10 => const Color(0xFFFFFFFF).withValues(alpha: 0.1);
+  static Color get glassWhite20 => const Color(0xFFFFFFFF).withValues(alpha: 0.2);
+  static Color get glassWhite30 => const Color(0xFFFFFFFF).withValues(alpha: 0.3);
+  static Color get glassBlack10 => const Color(0xFF000000).withValues(alpha: 0.1);
+  static Color get glassBlack20 => const Color(0xFF000000).withValues(alpha: 0.2);
+  static Color get glassBlack30 => const Color(0xFF000000).withValues(alpha: 0.3);
+
+  // Shadows - Using withValues() in the getter
+  static List<BoxShadow> get cardShadow => [
     BoxShadow(
-      color: Colors.black.withOpacity(0.1),
+      color: const Color(0xFF000000).withValues(alpha: 0.1),
       blurRadius: 20,
       spreadRadius: 1,
       offset: const Offset(0, 4),
     ),
   ];
 
-  static List<BoxShadow> buttonShadow = [
+  static List<BoxShadow> get buttonShadow => [
     BoxShadow(
-      color: primary.withOpacity(0.3),
+      color: primary.withValues(alpha: 0.3),
       blurRadius: 15,
       spreadRadius: 2,
       offset: const Offset(0, 4),
     ),
   ];
+
+  // Helper method to create a color with opacity
+  static Color withOpacity(Color color, double opacity) {
+    return color.withValues(alpha: opacity);
+  }
+
+  // Common semi-transparent colors
+  static Color get primary10 => primary.withValues(alpha: 0.1);
+  static Color get primary20 => primary.withValues(alpha: 0.2);
+  static Color get primary30 => primary.withValues(alpha: 0.3);
+  static Color get primary40 => primary.withValues(alpha: 0.4);
+
+  static Color get secondary10 => secondary.withValues(alpha: 0.1);
+  static Color get secondary20 => secondary.withValues(alpha: 0.2);
+  static Color get secondary30 => secondary.withValues(alpha: 0.3);
+
+  static Color get success10 => success.withValues(alpha: 0.1);
+  static Color get warning10 => warning.withValues(alpha: 0.1);
+  static Color get error10 => error.withValues(alpha: 0.1);
 }

@@ -29,26 +29,33 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
     try {
       await _audioPlayer.play(AssetSource(widget.soundPath));
-      setState(() {
-        _isPlaying = true;
-        _isLoading = false;
-      });
+
+      if (mounted) {
+        setState(() {
+          _isPlaying = true;
+          _isLoading = false;
+        });
+      }
 
       _audioPlayer.onPlayerComplete.listen((event) {
-        setState(() => _isPlaying = false);
+        if (mounted) {
+          setState(() => _isPlaying = false);
+        }
       });
     } catch (e) {
-      setState(() {
-        _isPlaying = false;
-        _isLoading = false;
-      });
-      // Show error snackbar
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to play sound: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+          _isLoading = false;
+        });
+        // Show error snackbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to play sound: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

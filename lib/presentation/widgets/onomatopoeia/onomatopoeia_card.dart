@@ -14,8 +14,21 @@ class OnomatopoeiaCard extends StatelessWidget {
     required this.onomatopoeia,
   });
 
+  // Helper method to get color with opacity
+  Color _getColorWithOpacity(Color color, double opacity) {
+    return Color.fromARGB(
+      ((color.a * 255.0) * opacity).round().clamp(0, 255),
+      (color.r * 255.0).round().clamp(0, 255),
+      (color.g * 255.0).round().clamp(0, 255),
+      (color.b * 255.0).round().clamp(0, 255),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final onSurfaceColor = Theme.of(context).colorScheme.onSurface;
+
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -40,14 +53,14 @@ class OnomatopoeiaCard extends StatelessWidget {
                         Text(
                           onomatopoeia.japanese,
                           style: AppTextStyles.japaneseLarge.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: primaryColor,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           onomatopoeia.romaji,
                           style: AppTextStyles.bodyMedium.copyWith(
-                            color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+                            color: _getColorWithOpacity(primaryColor, 0.7),
                             fontStyle: FontStyle.italic,
                           ),
                         ),
@@ -62,7 +75,7 @@ class OnomatopoeiaCard extends StatelessWidget {
                     likeBuilder: (isLiked) {
                       return Icon(
                         isLiked ? Icons.favorite : Icons.favorite_border,
-                        color: isLiked ? Colors.red : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        color: isLiked ? Colors.red : _getColorWithOpacity(onSurfaceColor, 0.6),
                         size: 30,
                       );
                     },
@@ -91,7 +104,7 @@ class OnomatopoeiaCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -101,7 +114,7 @@ class OnomatopoeiaCard extends StatelessWidget {
                       'Example:',
                       style: AppTextStyles.bodySmall.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: primaryColor,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -114,7 +127,7 @@ class OnomatopoeiaCard extends StatelessWidget {
                       Text(
                         onomatopoeia.exampleTranslation,
                         style: AppTextStyles.bodySmall.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                          color: _getColorWithOpacity(onSurfaceColor, 0.6),
                           fontStyle: FontStyle.italic,
                         ),
                       ),
@@ -140,13 +153,13 @@ class OnomatopoeiaCard extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                      color: _getColorWithOpacity(primaryColor, 0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       onomatopoeia.category,
                       style: AppTextStyles.buttonSmall.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: primaryColor,
                       ),
                     ),
                   ),
@@ -160,8 +173,9 @@ class OnomatopoeiaCard extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: _getDifficultyColor(onomatopoeia.difficulty)
-                          .withOpacity(0.1),
+                      color: _getColorWithOpacity(
+                          _getDifficultyColor(onomatopoeia.difficulty), 0.1
+                      ),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(

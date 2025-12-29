@@ -16,28 +16,3 @@ class AppConstants {
   static const String favoritesKey = 'favorites';
   static const String settingsKey = 'app_settings';
 }
-
-class OnomatopoeiaConstants {
-  static const List<String> categories = [
-    'Animal',
-    'Nature',
-    'Human',
-    'Object',
-    'Food',
-    'Other',
-  ];
-
-  static const List<String> soundTypes = [
-    'giongo',  // Sound words
-    'gitaigo', // State/condition words
-  ];
-
-  static const Map<String, String> categoryDescriptions = {
-    'Animal': 'Sounds made by animals',
-    'Nature': 'Natural phenomena sounds',
-    'Human': 'Human sounds and emotions',
-    'Object': 'Sounds from objects',
-    'Food': 'Eating and food-related sounds',
-    'Other': 'Miscellaneous sounds',
-  };
-}

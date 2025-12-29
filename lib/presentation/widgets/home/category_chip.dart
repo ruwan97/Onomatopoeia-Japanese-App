@@ -26,6 +26,12 @@ class CategoryChip extends StatelessWidget {
         return AppColors.objectColor;
       case 'Food':
         return AppColors.foodColor;
+      case 'Vehicle':
+        return AppColors.vehicleColor;
+      case 'Music':
+        return AppColors.musicColor;
+      case 'Technology':
+        return AppColors.technologyColor;
       default:
         return AppColors.primary;
     }
@@ -46,13 +52,13 @@ class CategoryChip extends StatelessWidget {
         ),
         selected: isSelected,
         onSelected: (_) => onSelected(),
-        backgroundColor: color.withOpacity(0.1),
+        backgroundColor: Color.alphaBlend(color.withAlpha(26), Colors.transparent), // 10% opacity: 255 * 0.1 = 25.5 ≈ 26
         selectedColor: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         side: BorderSide(
-          color: color.withOpacity(0.3),
+          color: color.withAlpha(77), // 30% opacity: 255 * 0.3 = 76.5 ≈ 77
           width: 1,
         ),
       ),

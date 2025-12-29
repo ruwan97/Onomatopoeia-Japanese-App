@@ -8,7 +8,7 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: Theme.of(context).colorScheme.surface,
-      highlightColor: Theme.of(context).colorScheme.surface.withOpacity(0.5),
+      highlightColor: Theme.of(context).colorScheme.surface.withAlpha(128), // 50% opacity: 255 * 0.5 = 127.5 ≈ 128
       child: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: 6,
