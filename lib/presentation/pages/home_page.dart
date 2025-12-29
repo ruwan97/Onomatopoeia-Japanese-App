@@ -7,6 +7,7 @@ import 'package:onomatopoeia_app/presentation/widgets/home/category_chip.dart';
 import 'package:onomatopoeia_app/presentation/widgets/home/search_bar.dart';
 import 'package:onomatopoeia_app/presentation/widgets/onomatopoeia/onomatopoeia_card.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/loading_indicator.dart';
+import 'package:onomatopoeia_app/presentation/pages/quiz_menu_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -162,14 +163,14 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildSectionTitle(String title) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Text(
-          title,
-          style: AppTextStyles.bodySmall.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
-            fontWeight: FontWeight.w600,
-          ),
-        )
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: AppTextStyles.bodySmall.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 
@@ -227,7 +228,7 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: _currentSort == option['value']
-            ? Theme.of(context).primaryColor.withValues(alpha: 0.1) // FIXED
+            ? Theme.of(context).primaryColor.withAlpha(26)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
@@ -241,7 +242,7 @@ class _HomePageState extends State<HomePage> {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: option['color'].withValues(alpha: 0.1), // FIXED
+            color: option['color'].withAlpha(26),
             shape: BoxShape.circle,
           ),
           child: Icon(
@@ -320,7 +321,7 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: _currentSort == value
-            ? Theme.of(context).primaryColor.withValues(alpha: 0.1) // FIXED
+            ? Theme.of(context).primaryColor.withAlpha(26)
             : Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
@@ -334,7 +335,7 @@ class _HomePageState extends State<HomePage> {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: iconColor.withValues(alpha: 0.1), // FIXED
+            color: iconColor.withAlpha(26),
             shape: BoxShape.circle,
           ),
           child: Icon(
@@ -347,7 +348,7 @@ class _HomePageState extends State<HomePage> {
         subtitle: Text(
           subtitle,
           style: AppTextStyles.caption.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5), // FIXED
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(128),
           ),
         ),
         trailing: _currentSort == value
@@ -359,8 +360,6 @@ class _HomePageState extends State<HomePage> {
         onTap: () {
           setState(() {
             _currentSort = value;
-            // Note: You'll need to implement these sorting methods in your provider
-            // provider.sortOnomatopoeia(value);
           });
           Navigator.pop(context);
         },
@@ -386,7 +385,6 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             setState(() {
               _currentSort = sort['value']!;
-              // provider.sortOnomatopoeia(sort['value']!);
             });
             Navigator.pop(context);
           },
@@ -407,6 +405,19 @@ class _HomePageState extends State<HomePage> {
       body: provider.isLoading
           ? const LoadingIndicator()
           : _buildContent(context, provider),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const QuizMenuPage(),
+            ),
+          );
+        },
+        icon: const Icon(Icons.quiz),
+        label: const Text('Quiz'),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
     );
   }
 
@@ -454,6 +465,56 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
+            // Quiz Card
+            // Padding(
+            //   padding: const EdgeInsets.all(16),
+            //   child: Card(
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(20),
+            //       child: Column(
+            //         children: [
+            //           Icon(
+            //             Icons.quiz,
+            //             size: 60,
+            //             color: Theme.of(context).primaryColor,
+            //           ),
+            //           const SizedBox(height: 16),
+            //           Text(
+            //             'Ready for a challenge?',
+            //             style: AppTextStyles.headlineSmall.copyWith(
+            //               fontWeight: FontWeight.bold,
+            //             ),
+            //           ),
+            //           const SizedBox(height: 8),
+            //           Text(
+            //             'Test your knowledge with a quick quiz',
+            //             textAlign: TextAlign.center,
+            //             style: AppTextStyles.bodyMedium.copyWith(
+            //               color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+            //             ),
+            //           ),
+            //           const SizedBox(height: 20),
+            //           ElevatedButton.icon(
+            //             onPressed: () {
+            //               Navigator.push(
+            //                 context,
+            //                 MaterialPageRoute(
+            //                   builder: (context) => const QuizMenuPage(),
+            //                 ),
+            //               );
+            //             },
+            //             icon: const Icon(Icons.play_arrow),
+            //             label: const Text('Start Quiz'),
+            //             style: ElevatedButton.styleFrom(
+            //               minimumSize: const Size(double.infinity, 50),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+
             const SizedBox(height: 32),
 
             // Empty State
@@ -465,20 +526,20 @@ class _HomePageState extends State<HomePage> {
                   Icon(
                     Icons.search_off,
                     size: 80,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3), // FIXED
+                    color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     'No results found',
                     style: AppTextStyles.headlineSmall.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
+                      color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Try a different search or category',
                     style: AppTextStyles.bodyMedium.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4), // FIXED
+                      color: Theme.of(context).colorScheme.onSurface.withAlpha(102),
                     ),
                   ),
                 ],
@@ -536,7 +597,7 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       '${provider.filteredList.length} results',
                       style: AppTextStyles.bodySmall.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
+                        color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
                       ),
                     ),
                     const Spacer(),
@@ -558,7 +619,7 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1), // FIXED
+                          color: Theme.of(context).colorScheme.primary.withAlpha(26),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Row(
@@ -595,6 +656,65 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+
+        // Quiz Button Section
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        //   child: Card(
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(16),
+        //       child: Row(
+        //         children: [
+        //           Container(
+        //             padding: const EdgeInsets.all(12),
+        //             decoration: BoxDecoration(
+        //               color: Theme.of(context).primaryColor.withAlpha(26),
+        //               shape: BoxShape.circle,
+        //             ),
+        //             child: Icon(
+        //               Icons.quiz,
+        //               color: Theme.of(context).primaryColor,
+        //               size: 24,
+        //             ),
+        //           ),
+        //           const SizedBox(width: 16),
+        //           Expanded(
+        //             child: Column(
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: [
+        //                 Text(
+        //                   'Test Your Knowledge',
+        //                   style: AppTextStyles.bodyLarge.copyWith(
+        //                     fontWeight: FontWeight.bold,
+        //                   ),
+        //                 ),
+        //                 const SizedBox(height: 4),
+        //                 Text(
+        //                   'Take a quiz to practice what you\'ve learned',
+        //                   style: AppTextStyles.bodySmall.copyWith(
+        //                     color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+        //                   ),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //           const SizedBox(width: 8),
+        //           ElevatedButton(
+        //             onPressed: () {
+        //               Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(
+        //                   builder: (context) => const QuizMenuPage(),
+        //                 ),
+        //               );
+        //             },
+        //             child: const Text('Start Quiz'),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
 
         // Scrollable List (Expanded)
         Expanded(

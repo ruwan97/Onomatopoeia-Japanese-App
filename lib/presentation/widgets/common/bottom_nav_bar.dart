@@ -32,6 +32,11 @@ class BottomNavBar extends StatelessWidget {
           label: 'Library',
         ),
         NavigationDestination(
+          icon: Icon(Icons.quiz_outlined),
+          selectedIcon: Icon(Icons.quiz),
+          label: 'Quiz',
+        ),
+        NavigationDestination(
           icon: Icon(Icons.person_outlined),
           selectedIcon: Icon(Icons.person),
           label: 'Profile',

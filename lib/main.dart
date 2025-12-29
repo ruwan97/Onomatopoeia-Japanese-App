@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        // Other providers will be added in OnomatopoeiaApp
       ],
       child: const OnomatopoeiaApp(),
     );

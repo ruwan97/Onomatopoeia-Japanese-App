@@ -9,6 +9,7 @@ import 'package:onomatopoeia_app/presentation/pages/home_page.dart';
 import 'package:onomatopoeia_app/presentation/pages/explore_page.dart';
 import 'package:onomatopoeia_app/presentation/pages/library_page.dart';
 import 'package:onomatopoeia_app/presentation/pages/profile_page.dart';
+import 'package:onomatopoeia_app/presentation/pages/quiz_menu_page.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/bottom_nav_bar.dart';
 
 class OnomatopoeiaApp extends StatelessWidget {
@@ -52,6 +53,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const HomePage(),
     const ExplorePage(),
     const LibraryPage(),
+    const QuizMenuPage(),
     const ProfilePage(),
   ];
 

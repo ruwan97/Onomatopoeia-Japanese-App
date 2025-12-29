@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:onomatopoeia_app/core/themes/app_text_styles.dart';
 import 'package:onomatopoeia_app/data/providers/user_provider.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/app_bar_custom.dart';
@@ -49,7 +47,7 @@ class ProfilePage extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             primaryColor,
-            Color.alphaBlend(Colors.white.withAlpha(51), primaryColor), // 20% lighter
+            Color.alphaBlend(Colors.white.withAlpha(51), primaryColor),
           ],
         ),
       ),
@@ -79,7 +77,7 @@ class ProfilePage extends StatelessWidget {
           Text(
             userProvider.email,
             style: AppTextStyles.bodyMedium.copyWith(
-              color: Colors.white.withAlpha(204), // 80% opacity: 255 * 0.8 = 204
+              color: Colors.white.withAlpha(204),
             ),
           ),
           const SizedBox(height: 16),
@@ -161,39 +159,28 @@ class ProfilePage extends StatelessWidget {
   Widget _buildStatCard(BuildContext context, String title, String value, IconData icon, Color color) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(12), // Reduced padding
+        padding: const EdgeInsets.all(12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Icon with constrained size
-            Container(
-              constraints: const BoxConstraints(maxHeight: 32),
-              child: Icon(icon, size: 28, color: color),
-            ),
-            const SizedBox(height: 6), // Reduced spacing
-            // Value text with ellipsis
-            Expanded(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  value,
-                  style: AppTextStyles.headlineMedium.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20, // Explicit font size
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                ),
+            Icon(icon, size: 26, color: color),
+            const SizedBox(height: 6),
+            Text(
+              value,
+              style: AppTextStyles.headlineMedium.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
-            // Title text with ellipsis
             Text(
               title,
               style: AppTextStyles.bodySmall.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
-                fontSize: 11, // Smaller font size
+                fontSize: 10,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -307,47 +294,35 @@ class ProfilePage extends StatelessWidget {
                   context,
                   Icons.star,
                   'Rate App',
-                      () {
-                    _launchURL('https://play.google.com/store/apps/details?id=your.package.name');
-                  },
+                      () {},
                 ),
                 _buildSettingDivider(),
                 _buildAboutItem(
                   context,
                   Icons.share,
                   'Share App',
-                      () {
-                    Share.share(
-                      'Check out this awesome Japanese Onomatopoeia learning app!',
-                    );
-                  },
+                      () {},
                 ),
                 _buildSettingDivider(),
                 _buildAboutItem(
                   context,
                   Icons.help,
                   'Help & Support',
-                      () {
-                    _launchURL('mailto:support@onomatopoeia.com');
-                  },
+                      () {},
                 ),
                 _buildSettingDivider(),
                 _buildAboutItem(
                   context,
                   Icons.privacy_tip,
                   'Privacy Policy',
-                      () {
-                    _launchURL('https://yourwebsite.com/privacy');
-                  },
+                      () {},
                 ),
                 _buildSettingDivider(),
                 _buildAboutItem(
                   context,
                   Icons.description,
                   'Terms of Service',
-                      () {
-                    _launchURL('https://yourwebsite.com/terms');
-                  },
+                      () {},
                 ),
                 _buildSettingDivider(),
                 _buildAboutItem(
@@ -402,18 +377,11 @@ class ProfilePage extends StatelessWidget {
           : Text(
         trailingText,
         style: AppTextStyles.bodySmall.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withAlpha(153), // 60% opacity
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
         ),
       ),
       onTap: onTap,
     );
-  }
-
-  Future<void> _launchURL(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    }
   }
 
   void _showLogoutDialog(BuildContext context) {

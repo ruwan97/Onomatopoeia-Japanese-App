@@ -283,34 +283,38 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
 
+        // Question Type
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Color.alphaBlend(
+                Theme.of(context).colorScheme.primary.withAlpha(26),
+                Theme.of(context).colorScheme.surface,
+              ), // 10% opacity
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              question.type == QuizType.meaningToWord
+                  ? 'What\'s the word?'
+                  : 'What\'s the meaning?',
+              style: AppTextStyles.bodySmall.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        // Question Card
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                // Question Type
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Color.alphaBlend(
-                      Theme.of(context).colorScheme.primary.withAlpha(26),
-                      Theme.of(context).colorScheme.surface,
-                    ), // 10% opacity
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    question.type == QuizType.meaningToWord
-                        ? 'What\'s the word?'
-                        : 'What\'s the meaning?',
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 24),
-
                 // Question
                 ScaleAnimation(
                   child: Container(
@@ -389,7 +393,7 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                 ),
 
-                const SizedBox(height: 32),
+                const SizedBox(height: 24),
 
                 // Answers
                 Column(
@@ -438,34 +442,46 @@ class _QuizPageState extends State<QuizPage> {
                 ),
 
                 const SizedBox(height: 32),
-
-                // Next Button (if answered)
-                if (_isAnswered)
-                  ScaleAnimation(
-                    child: GradientButton(
-                      onPressed: () {
-                        if (_currentQuestionIndex < _questions.length - 1) {
-                          _nextQuestion();
-                        } else {
-                          _showResults();
-                        }
-                      },
-                      gradient: AppColors.primaryGradient,
-                      child: Text(
-                        _currentQuestionIndex < _questions.length - 1
-                            ? 'Next Question'
-                            : 'See Results',
-                        style: AppTextStyles.buttonLarge.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
               ],
             ),
           ),
         ),
+
+        // Fixed Bottom Section with Navigation Button
+        if (_isAnswered)
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              border: Border(
+                top: BorderSide(
+                  color: Theme.of(context).dividerColor.withAlpha(51),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: ScaleAnimation(
+              child: GradientButton(
+                onPressed: () {
+                  if (_currentQuestionIndex < _questions.length - 1) {
+                    _nextQuestion();
+                  } else {
+                    _showResults();
+                  }
+                },
+                gradient: AppColors.primaryGradient,
+                child: Text(
+                  _currentQuestionIndex < _questions.length - 1
+                      ? 'Next Question'
+                      : 'See Results',
+                  style: AppTextStyles.buttonLarge.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }
