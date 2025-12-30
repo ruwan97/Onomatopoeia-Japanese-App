@@ -31,10 +31,14 @@ class _QuizPageState extends State<QuizPage> {
   late List<QuizQuestion> _questions;
   int _currentQuestionIndex = 0;
   int _score = 0;
-  bool _isAnswered = false;
+
+  // Track answer state for each question
+  final Map<int, bool> _questionAnswered = {};
+  final Map<int, int?> _selectedAnswers = {};
+
   bool _showResult = false;
   bool _isLoading = true;
-  int? _selectedAnswerIndex;
+  bool _notEnoughQuestions = false;
   late ConfettiController _confettiController;
 
   @override
@@ -60,9 +64,19 @@ class _QuizPageState extends State<QuizPage> {
       filtered = filtered.where((item) => item.difficulty == widget.difficulty).toList();
     }
 
-    // Shuffle and take 10 questions
+    // Check if we have enough questions (minimum 1 for a quiz)
+    if (filtered.isEmpty) {
+      setState(() {
+        _isLoading = false;
+        _notEnoughQuestions = true;
+      });
+      return;
+    }
+
+    // Shuffle and take 10 questions (or all if less than 10)
     filtered.shuffle();
-    _quizQuestions = filtered.take(10).toList();
+    final int questionsToTake = filtered.length >= 10 ? 10 : filtered.length;
+    _quizQuestions = filtered.take(questionsToTake).toList();
 
     // Create quiz questions
     _questions = _quizQuestions.map((onomatopoeia) {
@@ -72,15 +86,24 @@ class _QuizPageState extends State<QuizPage> {
       );
     }).toList();
 
-    setState(() => _isLoading = false);
+    // Initialize answer tracking
+    for (int i = 0; i < _questions.length; i++) {
+      _questionAnswered[i] = false;
+      _selectedAnswers[i] = null;
+    }
+
+    setState(() {
+      _isLoading = false;
+      _notEnoughQuestions = false;
+    });
   }
 
   void _selectAnswer(int index) {
-    if (_isAnswered) return;
+    if (_questionAnswered[_currentQuestionIndex] == true) return;
 
     setState(() {
-      _selectedAnswerIndex = index;
-      _isAnswered = true;
+      _selectedAnswers[_currentQuestionIndex] = index;
+      _questionAnswered[_currentQuestionIndex] = true;
 
       if (_questions[_currentQuestionIndex].correctAnswerIndex == index) {
         _score++;
@@ -103,8 +126,6 @@ class _QuizPageState extends State<QuizPage> {
   void _nextQuestion() {
     setState(() {
       _currentQuestionIndex++;
-      _isAnswered = false;
-      _selectedAnswerIndex = null;
     });
   }
 
@@ -112,14 +133,12 @@ class _QuizPageState extends State<QuizPage> {
     if (_currentQuestionIndex > 0) {
       setState(() {
         _currentQuestionIndex--;
-        _isAnswered = false;
-        _selectedAnswerIndex = null;
       });
     }
   }
 
   void _showResults() {
-    if (_score >= (_questions.length * 0.8)) {
+    if (_questions.isNotEmpty && _score >= (_questions.length * 0.8)) {
       _confettiController.play();
     }
 
@@ -134,9 +153,13 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {
       _currentQuestionIndex = 0;
       _score = 0;
-      _isAnswered = false;
       _showResult = false;
-      _selectedAnswerIndex = null;
+
+      // Reset all answer tracking
+      for (int i = 0; i < _questions.length; i++) {
+        _questionAnswered[i] = false;
+        _selectedAnswers[i] = null;
+      }
     });
 
     _confettiController.stop();
@@ -148,13 +171,13 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Color _getAnswerColor(int index) {
-    if (!_isAnswered) return Colors.transparent;
+    if (_questionAnswered[_currentQuestionIndex] != true) return Colors.transparent;
 
     if (index == _questions[_currentQuestionIndex].correctAnswerIndex) {
       return Color.alphaBlend(Colors.green.withAlpha(51), Colors.transparent); // 20% opacity
     }
 
-    if (index == _selectedAnswerIndex) {
+    if (index == _selectedAnswers[_currentQuestionIndex]) {
       return Color.alphaBlend(Colors.red.withAlpha(51), Colors.transparent); // 20% opacity
     }
 
@@ -162,7 +185,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Widget _getAnswerIcon(int index) {
-    if (!_isAnswered) return const SizedBox.shrink();
+    if (_questionAnswered[_currentQuestionIndex] != true) return const SizedBox.shrink();
 
     if (index == _questions[_currentQuestionIndex].correctAnswerIndex) {
       return const Icon(
@@ -172,7 +195,7 @@ class _QuizPageState extends State<QuizPage> {
       );
     }
 
-    if (index == _selectedAnswerIndex) {
+    if (index == _selectedAnswers[_currentQuestionIndex]) {
       return const Icon(
         Icons.cancel,
         color: Colors.red,
@@ -193,6 +216,63 @@ class _QuizPageState extends State<QuizPage> {
         ),
         body: Center(
           child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (_notEnoughQuestions) {
+      return Scaffold(
+        appBar: const AppBarCustom(
+          title: 'Quiz',
+          showBackButton: true,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.sentiment_dissatisfied,
+                  size: 80,
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  'Not Enough Questions',
+                  style: AppTextStyles.headlineMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  widget.difficulty != null
+                      ? 'There are no words with difficulty level ${widget.difficulty} to create a quiz.'
+                      : widget.category != null && widget.category != 'All'
+                      ? 'There are no words in the "${widget.category}" category to create a quiz.'
+                      : 'There are no words available to create a quiz.',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text('Go Back'),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -230,6 +310,7 @@ class _QuizPageState extends State<QuizPage> {
   Widget _buildQuizScreen() {
     final question = _questions[_currentQuestionIndex];
     final isLastQuestion = _currentQuestionIndex == _questions.length - 1;
+    final isAnswered = _questionAnswered[_currentQuestionIndex] == true;
 
     return Column(
       children: [
@@ -578,7 +659,7 @@ class _QuizPageState extends State<QuizPage> {
                 flex: 3,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: _isAnswered
+                    gradient: isAnswered
                         ? LinearGradient(
                       colors: [
                         Theme.of(context).colorScheme.primary,
@@ -589,7 +670,7 @@ class _QuizPageState extends State<QuizPage> {
                     )
                         : null,
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: _isAnswered
+                    boxShadow: isAnswered
                         ? [
                       BoxShadow(
                         color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
@@ -600,7 +681,7 @@ class _QuizPageState extends State<QuizPage> {
                         : null,
                   ),
                   child: ElevatedButton(
-                    onPressed: _isAnswered
+                    onPressed: isAnswered
                         ? () {
                       if (isLastQuestion) {
                         _showResults();
@@ -611,7 +692,7 @@ class _QuizPageState extends State<QuizPage> {
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
-                      foregroundColor: _isAnswered ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
+                      foregroundColor: isAnswered ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -632,7 +713,7 @@ class _QuizPageState extends State<QuizPage> {
                           Icon(
                             Icons.arrow_forward,
                             size: 18,
-                            color: _isAnswered ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
+                            color: isAnswered ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                           ),
                       ],
                     ),
@@ -647,7 +728,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   Widget _buildResultsScreen() {
-    final percentage = (_score / _questions.length) * 100;
+    final percentage = _questions.isNotEmpty ? (_score / _questions.length) * 100 : 0;
     String message;
     Color color;
 
@@ -876,14 +957,13 @@ class QuizQuestion {
         .toList()
       ..shuffle();
 
-    // Take 3 incorrect options
-    final selectedIncorrect = incorrectOptions.take(3).toList();
+    // Take 3 incorrect options (or fewer if not enough)
+    final int incorrectToTake = incorrectOptions.length >= 3 ? 3 : incorrectOptions.length;
+    final selectedIncorrect = incorrectOptions.take(incorrectToTake).toList();
 
     // Create options list
     final options = <String>[
-      type == QuizType.meaningToWord
-          ? onomatopoeia.japanese
-          : onomatopoeia.meaning,
+      type == QuizType.meaningToWord ? onomatopoeia.japanese : onomatopoeia.meaning,
       ...selectedIncorrect,
     ];
 
@@ -891,10 +971,7 @@ class QuizQuestion {
     options.shuffle();
 
     // Find correct answer index
-    final correctAnswer = type == QuizType.meaningToWord
-        ? onomatopoeia.japanese
-        : onomatopoeia.meaning;
-
+    final correctAnswer = type == QuizType.meaningToWord ? onomatopoeia.japanese : onomatopoeia.meaning;
     final correctAnswerIndex = options.indexWhere((option) => option == correctAnswer);
 
     return QuizQuestion(

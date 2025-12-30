@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:onomatopoeia_app/presentation/pages/quiz_page.dart';
 import 'package:onomatopoeia_app/core/themes/app_text_styles.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/app_bar_custom.dart';
+import 'package:onomatopoeia_app/data/providers/onomatopoeia_provider.dart';
 
 class QuizMenuPage extends StatelessWidget {
   const QuizMenuPage({super.key});
@@ -134,7 +136,18 @@ class QuizMenuPage extends StatelessWidget {
   }
 
   void _showCategoryDialog(BuildContext context) {
-    final categories = ['All', 'Animal', 'Nature', 'Human', 'Object', 'Food'];
+    // All categories from CategoryChip widget
+    final categories = [
+      'All',
+      'Animal',
+      'Nature',
+      'Human',
+      'Object',
+      'Food',
+      'Vehicle',
+      'Music',
+      'Technology'
+    ];
 
     showDialog(
       context: context,
@@ -180,6 +193,8 @@ class QuizMenuPage extends StatelessWidget {
   }
 
   void _showDifficultyDialog(BuildContext context) {
+    final provider = Provider.of<OnomatopoeiaProvider>(context, listen: false);
+
     showDialog(
       context: context,
       builder: (context) {
@@ -193,6 +208,12 @@ class QuizMenuPage extends StatelessWidget {
             children: List.generate(5, (index) {
               final difficulty = index + 1;
               String difficultyText;
+              int questionCount = provider.onomatopoeiaList
+                  .where((item) => item.difficulty == difficulty)
+                  .length;
+
+              bool hasEnoughQuestions = questionCount >= 4;
+
               switch (difficulty) {
                 case 1:
                   difficultyText = 'Level 1 (Beginner)';
@@ -212,8 +233,18 @@ class QuizMenuPage extends StatelessWidget {
                 default:
                   difficultyText = 'Level $difficulty';
               }
+
               return ListTile(
                 title: Text(difficultyText),
+                subtitle: !hasEnoughQuestions && difficulty >= 4
+                    ? Text(
+                  'Only $questionCount question${questionCount == 1 ? '' : 's'} available',
+                  style: const TextStyle(
+                    color: Colors.orange,
+                    fontSize: 12,
+                  ),
+                )
+                    : null,
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
