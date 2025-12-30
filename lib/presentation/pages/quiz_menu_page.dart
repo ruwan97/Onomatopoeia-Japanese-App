@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onomatopoeia_app/presentation/pages/quiz_page.dart';
 import 'package:onomatopoeia_app/core/themes/app_text_styles.dart';
+import 'package:onomatopoeia_app/presentation/widgets/common/app_bar_custom.dart';
 
 class QuizMenuPage extends StatelessWidget {
   const QuizMenuPage({super.key});
@@ -8,8 +9,9 @@ class QuizMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz Menu'),
+      appBar: const AppBarCustom(
+        title: 'Quiz Menu',
+        showBackButton: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -96,18 +98,36 @@ class QuizMenuPage extends StatelessWidget {
       ) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         leading: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: color.withAlpha(26),
-            shape: BoxShape.circle,
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, size: 24, color: color),
         ),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.chevron_right),
+        title: Text(
+          title,
+          style: AppTextStyles.bodyLarge.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: AppTextStyles.bodyMedium.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
+          ),
+        ),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: Theme.of(context).colorScheme.primary,
+        ),
         onTap: onTap,
       ),
     );
@@ -120,7 +140,10 @@ class QuizMenuPage extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Select Category'),
+          title: Text(
+            'Select Category',
+            style: AppTextStyles.headlineSmall,
+          ),
           content: SizedBox(
             width: double.maxFinite,
             child: ListView.builder(
@@ -142,6 +165,15 @@ class QuizMenuPage extends StatelessWidget {
               },
             ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+          ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         );
       },
     );
@@ -152,7 +184,10 @@ class QuizMenuPage extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Select Difficulty'),
+          title: Text(
+            'Select Difficulty',
+            style: AppTextStyles.headlineSmall,
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: List.generate(5, (index) {
@@ -190,6 +225,15 @@ class QuizMenuPage extends StatelessWidget {
                 },
               );
             }),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+          ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
         );
       },
