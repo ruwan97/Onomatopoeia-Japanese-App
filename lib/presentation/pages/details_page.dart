@@ -81,7 +81,7 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
             'Meaning: ${_onomatopoeia!.meaning}\n\n'
             'Example: ${_onomatopoeia!.exampleSentence}\n'
             'Translation: ${_onomatopoeia!.exampleTranslation}\n\n'
-            'Download Onomatopoeia Master app to learn more!',
+            'Download Japanese Onomatopoeia app to learn more!',
       );
     }
   }

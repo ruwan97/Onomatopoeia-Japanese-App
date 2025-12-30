@@ -1,5 +1,5 @@
 class AppConstants {
-  static const String appName = 'Onomatopoeia Master';
+  static const String appName = 'Japanese Onomatopoeia';
   static const String appVersion = '1.0.0';
   static const String appDescription = 'Learn Japanese Onomatopoeia';
 

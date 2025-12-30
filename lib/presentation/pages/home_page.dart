@@ -399,7 +399,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: const AppBarCustom(
-        title: 'Onomatopoeia Master',
+        title: 'Japanese Onomatopoeia',
         showBackButton: false,
       ),
       body: provider.isLoading
