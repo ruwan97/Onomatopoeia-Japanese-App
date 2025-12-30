@@ -170,4 +170,8 @@ class OnomatopoeiaProvider extends ChangeNotifier {
     _filteredList = _onomatopoeiaList;
     notifyListeners();
   }
+
+  List<Onomatopoeia> get favoriteList {
+    return onomatopoeiaList.where((item) => item.isFavorite).toList();
+  }
 }

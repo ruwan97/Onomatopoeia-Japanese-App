@@ -1,9 +1,11 @@
+// In gradient_button.dart
 import 'package:flutter/material.dart';
 import 'package:onomatopoeia_app/core/themes/app_text_styles.dart';
 
 class GradientButton extends StatelessWidget {
   final Widget child;
   final Gradient gradient;
+  final Gradient? disabledGradient; // Add this parameter
   final VoidCallback? onPressed;
   final bool isLoading;
   final double borderRadius;
@@ -17,6 +19,7 @@ class GradientButton extends StatelessWidget {
     super.key,
     required this.child,
     required this.gradient,
+    this.disabledGradient, // Add this parameter
     this.onPressed,
     this.isLoading = false,
     this.borderRadius = 12,
@@ -29,30 +32,39 @@ class GradientButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonGradient = disabled
+        ? (disabledGradient ??
+            LinearGradient(
+              colors: [
+                Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withAlpha(31), // 12% opacity
+                Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withAlpha(31), // 12% opacity
+              ],
+            ))
+        : gradient;
+
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        gradient: disabled
-            ? LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.onSurface.withAlpha(31), // 12% opacity: 255 * 0.12 = 30.6 ≈ 31
-            Theme.of(context).colorScheme.onSurface.withAlpha(31), // 12% opacity
-          ],
-        )
-            : gradient,
+        gradient: buttonGradient,
         borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: disabled
             ? null
             : shadow ??
-            [
-              BoxShadow(
-                color: gradient.colors.first.withAlpha(77), // 30% opacity: 255 * 0.3 = 76.5 ≈ 77
-                blurRadius: 15,
-                spreadRadius: 2,
-                offset: const Offset(0, 4),
-              ),
-            ],
+                [
+                  BoxShadow(
+                    color: gradient.colors.first.withAlpha(77), // 30% opacity
+                    blurRadius: 15,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
       ),
       child: ElevatedButton(
         onPressed: disabled || isLoading ? null : onPressed,
@@ -67,21 +79,24 @@ class GradientButton extends StatelessWidget {
         ),
         child: isLoading
             ? SizedBox(
-          width: 20,
-          height: 20,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        )
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              )
             : DefaultTextStyle(
-          style: AppTextStyles.buttonLarge.copyWith(
-            color: disabled
-                ? Theme.of(context).colorScheme.onSurface.withAlpha(97) // 38% opacity: 255 * 0.38 = 96.9 ≈ 97
-                : Colors.white,
-          ),
-          child: child,
-        ),
+                style: AppTextStyles.buttonLarge.copyWith(
+                  color: disabled
+                      ? Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.38)
+                      : Colors.white,
+                ),
+                child: child,
+              ),
       ),
     );
   }

@@ -4,12 +4,10 @@ import 'package:confetti/confetti.dart';
 import 'dart:math' as math;
 
 import 'package:onomatopoeia_app/core/themes/app_text_styles.dart';
-import 'package:onomatopoeia_app/core/themes/app_colors.dart';
 import 'package:onomatopoeia_app/data/models/onomatopoeia_model.dart';
 import 'package:onomatopoeia_app/data/providers/onomatopoeia_provider.dart';
 import 'package:onomatopoeia_app/data/providers/user_provider.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/app_bar_custom.dart';
-import 'package:onomatopoeia_app/presentation/widgets/common/gradient_button.dart';
 import 'package:onomatopoeia_app/presentation/widgets/onomatopoeia/audio_player_widget.dart';
 import 'package:onomatopoeia_app/presentation/animations/fade_animation.dart';
 import 'package:onomatopoeia_app/presentation/animations/scale_animation.dart';
@@ -100,15 +98,6 @@ class _QuizPageState extends State<QuizPage> {
         // Wrong answer - you could update stats here too
       }
     });
-
-    // Move to next question after delay
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      if (_currentQuestionIndex < _questions.length - 1) {
-        _nextQuestion();
-      } else {
-        _showResults();
-      }
-    });
   }
 
   void _nextQuestion() {
@@ -117,6 +106,16 @@ class _QuizPageState extends State<QuizPage> {
       _isAnswered = false;
       _selectedAnswerIndex = null;
     });
+  }
+
+  void _previousQuestion() {
+    if (_currentQuestionIndex > 0) {
+      setState(() {
+        _currentQuestionIndex--;
+        _isAnswered = false;
+        _selectedAnswerIndex = null;
+      });
+    }
   }
 
   void _showResults() {
@@ -230,45 +229,79 @@ class _QuizPageState extends State<QuizPage> {
 
   Widget _buildQuizScreen() {
     final question = _questions[_currentQuestionIndex];
+    final isLastQuestion = _currentQuestionIndex == _questions.length - 1;
 
     return Column(
       children: [
         // Progress Bar
-        LinearProgressIndicator(
-          value: (_currentQuestionIndex + 1) / _questions.length,
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-          color: Theme.of(context).colorScheme.primary,
-          minHeight: 4,
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: LinearProgressIndicator(
+            value: (_currentQuestionIndex + 1) / _questions.length,
+            backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: Theme.of(context).colorScheme.primary,
+            minHeight: 8,
+            borderRadius: BorderRadius.circular(4),
+          ),
         ),
 
-        // Header
-        Padding(
-          padding: const EdgeInsets.all(16),
+        // Header with score and question counter
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            border: Border(
+              bottom: BorderSide(
+                color: Theme.of(context).dividerColor,
+                width: 1,
+              ),
+            ),
+          ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Question Counter
-              Text(
-                'Question ${_currentQuestionIndex + 1}/${_questions.length}',
-                style: AppTextStyles.bodyLarge.copyWith(
-                  fontWeight: FontWeight.bold,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.help_outline,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      '${_currentQuestionIndex + 1}/${_questions.length}',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
+
+              const Spacer(),
 
               // Score
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Color.alphaBlend(
-                    Theme.of(context).colorScheme.primary.withAlpha(26),
-                    Theme.of(context).colorScheme.surface,
-                  ), // 10% opacity
+                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.emoji_events, size: 16),
-                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.emoji_events,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 6),
                     Text(
                       '$_score',
                       style: AppTextStyles.bodyMedium.copyWith(
@@ -283,205 +316,332 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
 
-        // Question Type
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        // Question Type Badge
+        Container(
+          padding: const EdgeInsets.all(16),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Color.alphaBlend(
-                Theme.of(context).colorScheme.primary.withAlpha(26),
-                Theme.of(context).colorScheme.surface,
-              ), // 10% opacity
+              gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
               borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Text(
               question.type == QuizType.meaningToWord
-                  ? 'What\'s the word?'
-                  : 'What\'s the meaning?',
-              style: AppTextStyles.bodySmall.copyWith(
-                color: Theme.of(context).colorScheme.primary,
+                  ? '🎯 What\'s the word?'
+                  : '📖 What\'s the meaning?',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
         ),
 
-        const SizedBox(height: 16),
-
-        // Question Card
+        // Question Card (Fixed Height)
         Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                // Question
-                ScaleAnimation(
-                  child: Container(
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withAlpha(26), // 10% opacity
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        if (question.type == QuizType.meaningToWord)
-                          Column(
-                            children: [
-                              // Audio Player (for sound-based questions)
-                              AudioPlayerWidget(
-                                soundPath: question.correctOnomatopoeia.soundPath,
-                              ),
-
-                              const SizedBox(height: 24),
-
-                              // Meaning Question
-                              Text(
-                                question.correctOnomatopoeia.meaning,
-                                style: AppTextStyles.headlineMedium.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-
-                              const SizedBox(height: 16),
-
-                              // Example Sentence Hint
-                              Text(
-                                question.correctOnomatopoeia.exampleSentence,
-                                style: AppTextStyles.bodyMedium.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          )
-                        else
-                          Column(
-                            children: [
-                              // Japanese Word Question
-                              Text(
-                                question.correctOnomatopoeia.japanese,
-                                style: AppTextStyles.japaneseLarge.copyWith(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-
-                              const SizedBox(height: 16),
-
-                              // Romaji Hint
-                              Text(
-                                question.correctOnomatopoeia.romaji,
-                                style: AppTextStyles.bodyLarge.copyWith(
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (question.type == QuizType.meaningToWord)
+                      Column(
+                        children: [
+                          // Audio Player
+                          AudioPlayerWidget(
+                            soundPath: question.correctOnomatopoeia.soundPath,
                           ),
-                      ],
-                    ),
-                  ),
-                ),
 
-                const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                // Answers
-                Column(
-                  children: List.generate(question.options.length, (index) {
-                    return FadeAnimation(
-                      delay: index * 100,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Card(
-                          color: _getAnswerColor(index),
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
+                          // Meaning Question
+                          Text(
+                            question.correctOnomatopoeia.meaning,
+                            style: AppTextStyles.headlineMedium.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
-                            leading: Container(
-                              width: 40,
-                              height: 40,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Color.alphaBlend(
-                                  Theme.of(context).colorScheme.primary.withAlpha(26),
-                                  Theme.of(context).colorScheme.surface,
-                                ), // 10% opacity
-                                borderRadius: BorderRadius.circular(10),
+                            textAlign: TextAlign.center,
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          // Example Sentence Hint
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              '"${question.correctOnomatopoeia.exampleSentence}"',
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                fontStyle: FontStyle.italic,
                               ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      Column(
+                        children: [
+                          // Japanese Word Question
+                          Text(
+                            question.correctOnomatopoeia.japanese,
+                            style: AppTextStyles.japaneseLarge.copyWith(
+                              fontSize: 56,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          // Romaji Hint
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              question.correctOnomatopoeia.romaji,
+                              style: AppTextStyles.bodyLarge.copyWith(
+                                fontStyle: FontStyle.italic,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        // Answers Section (Fixed Height)
+        Container(
+          height: 220,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 2.5,
+            ),
+            itemCount: question.options.length,
+            itemBuilder: (context, index) {
+              return FadeAnimation(
+                delay: index * 100,
+                child: Material(
+                  borderRadius: BorderRadius.circular(12),
+                  color: _getAnswerColor(index),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () => _selectAnswer(index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Theme.of(context).dividerColor,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          // Option Letter
+                          Container(
+                            width: 36,
+                            height: 36,
+                            margin: const EdgeInsets.only(left: 12),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
                               child: Text(
                                 String.fromCharCode(65 + index), // A, B, C, D
-                                style: AppTextStyles.bodyLarge.copyWith(
+                                style: AppTextStyles.bodyMedium.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
                             ),
-                            title: Text(
+                          ),
+                          const SizedBox(width: 12),
+                          // Option Text
+                          Expanded(
+                            child: Text(
                               question.options[index],
                               style: AppTextStyles.bodyMedium,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            trailing: _getAnswerIcon(index),
-                            onTap: () => _selectAnswer(index),
                           ),
-                        ),
+                          // Answer Icon
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: _getAnswerIcon(index),
+                          ),
+                        ],
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                 ),
-
-                const SizedBox(height: 32),
-              ],
-            ),
+              );
+            },
           ),
         ),
 
-        // Fixed Bottom Section with Navigation Button
-        if (_isAnswered)
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              border: Border(
-                top: BorderSide(
-                  color: Theme.of(context).dividerColor.withAlpha(51),
-                  width: 1,
-                ),
-              ),
-            ),
-            child: ScaleAnimation(
-              child: GradientButton(
-                onPressed: () {
-                  if (_currentQuestionIndex < _questions.length - 1) {
-                    _nextQuestion();
-                  } else {
-                    _showResults();
-                  }
-                },
-                gradient: AppColors.primaryGradient,
-                child: Text(
-                  _currentQuestionIndex < _questions.length - 1
-                      ? 'Next Question'
-                      : 'See Results',
-                  style: AppTextStyles.buttonLarge.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+        // Navigation Buttons (Inline)
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            border: Border(
+              top: BorderSide(
+                color: Theme.of(context).dividerColor,
+                width: 1,
               ),
             ),
           ),
+          child: Row(
+            children: [
+              // Back Button
+              Expanded(
+                flex: 2,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: _currentQuestionIndex > 0
+                        ? LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                      ],
+                    )
+                        : null,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: _currentQuestionIndex > 0 ? _previousQuestion : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      foregroundColor: _currentQuestionIndex > 0
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_back, size: 18),
+                        SizedBox(width: 8),
+                        Text('Back'),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              // Next/Results Button
+              Expanded(
+                flex: 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: _isAnswered
+                        ? LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    )
+                        : null,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: _isAnswered
+                        ? [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ]
+                        : null,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: _isAnswered
+                        ? () {
+                      if (isLastQuestion) {
+                        _showResults();
+                      } else {
+                        _nextQuestion();
+                      }
+                    }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      foregroundColor: _isAnswered ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          isLastQuestion ? 'See Results' : 'Next Question',
+                          style: AppTextStyles.buttonMedium.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        if (!isLastQuestion) const SizedBox(width: 8),
+                        if (!isLastQuestion)
+                          Icon(
+                            Icons.arrow_forward,
+                            size: 18,
+                            color: _isAnswered ? Colors.white : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -492,16 +652,16 @@ class _QuizPageState extends State<QuizPage> {
     Color color;
 
     if (percentage >= 90) {
-      message = 'Excellent! You\'re a master!';
+      message = 'Excellent! You\'re a master! 🏆';
       color = Colors.green;
     } else if (percentage >= 70) {
-      message = 'Great job! Keep practicing!';
+      message = 'Great job! Keep practicing! ⭐';
       color = Colors.blue;
     } else if (percentage >= 50) {
-      message = 'Good effort! Try again!';
+      message = 'Good effort! Try again! 💪';
       color = Colors.orange;
     } else {
-      message = 'Keep learning! You\'ll improve!';
+      message = 'Keep learning! You\'ll improve! 📚';
       color = Colors.red;
     }
 
@@ -581,27 +741,54 @@ class _QuizPageState extends State<QuizPage> {
             const SizedBox(height: 48),
 
             // Buttons
-            Column(
+            Row(
               children: [
-                FadeAnimation(
-                  delay: 600,
-                  child: GradientButton(
-                    onPressed: _restartQuiz,
-                    gradient: AppColors.primaryGradient,
-                    child: Text(
-                      'Try Again',
-                      style: AppTextStyles.buttonLarge.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                // Try Again Button
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: ElevatedButton(
+                      onPressed: _restartQuiz,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        'Try Again',
+                        style: AppTextStyles.buttonLarge.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(width: 12),
 
-                FadeAnimation(
-                  delay: 700,
+                // Exit Button
+                Expanded(
                   child: OutlinedButton(
                     onPressed: _exitQuiz,
                     style: OutlinedButton.styleFrom(
@@ -609,10 +796,7 @@ class _QuizPageState extends State<QuizPage> {
                       side: BorderSide(
                         color: Theme.of(context).colorScheme.primary,
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16,
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
