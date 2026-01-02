@@ -205,4 +205,23 @@ class UserProvider extends ChangeNotifier {
     await _saveUserData();
     notifyListeners();
   }
+
+  Map<String, dynamic> get preferences {
+    // Return default preferences if not implemented yet
+    return {
+      'theme': 'system',
+      'notifications': true,
+      'sound': true,
+      'vibration': true,
+      'autoPlay': false,
+      'difficulty': 'adaptive',
+      'language': 'system',
+    };
+  }
+
+  Future<void> updatePreference(String key, dynamic value) async {
+    // Implement preference update logic here
+    // For now, just notify listeners
+    notifyListeners();
+  }
 }

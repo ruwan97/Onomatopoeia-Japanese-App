@@ -5,6 +5,7 @@ import 'package:onomatopoeia_app/core/themes/theme_provider.dart';
 import 'package:onomatopoeia_app/data/providers/onomatopoeia_provider.dart';
 import 'package:onomatopoeia_app/data/providers/user_provider.dart';
 import 'package:onomatopoeia_app/services/audio_service.dart';
+import 'package:onomatopoeia_app/services/navigation_service.dart';
 import 'package:onomatopoeia_app/presentation/pages/home_page.dart';
 import 'package:onomatopoeia_app/presentation/pages/explore_page.dart';
 import 'package:onomatopoeia_app/presentation/pages/library_page.dart';
@@ -22,6 +23,7 @@ class OnomatopoeiaApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OnomatopoeiaProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         Provider(create: (_) => AudioService()),
+        Provider(create: (_) => NavigationService()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {

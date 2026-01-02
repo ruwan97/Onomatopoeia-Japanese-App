@@ -1,4 +1,4 @@
-import 'dart:math';  // Add this import for sqrt
+import 'dart:math'; // Add this import for sqrt
 import 'package:flutter/material.dart';
 
 class ColorHelper {
@@ -23,13 +23,15 @@ class ColorHelper {
     assert(amount >= 0 && amount <= 1);
 
     final hsl = HSLColor.fromColor(color);
-    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight =
+        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
     return hslLight.toColor();
   }
 
   static Color withOpacity(Color color, double opacity) {
-    return color.withValues(alpha: opacity);
+    // Use withAlpha to set opacity
+    return color.withAlpha((opacity * 255).round());
   }
 
   static Color blend(Color color1, Color color2, double ratio) {
@@ -66,7 +68,8 @@ class ColorHelper {
     return HSLColor.fromAHSL(a, h, s, l).toColor();
   }
 
-  static String toHex(Color color, {bool withHash = true, bool includeAlpha = false}) {
+  static String toHex(Color color,
+      {bool withHash = true, bool includeAlpha = false}) {
     // Use the new properties r, g, b and convert to hex
     final r = (color.r * 255).round();
     final g = (color.g * 255).round();
@@ -131,7 +134,8 @@ class ColorHelper {
   }
 
   // Get analogous colors (neighbors on color wheel)
-  static List<Color> getAnalogous(Color color, {int count = 3, double spread = 30}) {
+  static List<Color> getAnalogous(Color color,
+      {int count = 3, double spread = 30}) {
     final hsl = HSLColor.fromColor(color);
     final colors = <Color>[];
 
@@ -171,14 +175,15 @@ class ColorHelper {
   // Helper method to extract RGB values as integers (0-255)
   static (int r, int g, int b) getRgbValues(Color color) {
     return (
-    (color.r * 255).round(),
-    (color.g * 255).round(),
-    (color.b * 255).round(),
+      (color.r * 255).round(),
+      (color.g * 255).round(),
+      (color.b * 255).round(),
     );
   }
 
   // Helper method to extract RGBA values as floats (0.0-1.0)
-  static (double r, double g, double b, double a) getRgbaFloatValues(Color color) {
+  static (double r, double g, double b, double a) getRgbaFloatValues(
+      Color color) {
     return (color.r, color.g, color.b, color.a);
   }
 
@@ -203,7 +208,8 @@ class ColorHelper {
   }
 
   // Create a color from HSL values
-  static Color fromHsl(double hue, double saturation, double lightness, [double opacity = 1.0]) {
+  static Color fromHsl(double hue, double saturation, double lightness,
+      [double opacity = 1.0]) {
     return HSLColor.fromAHSL(opacity, hue, saturation, lightness).toColor();
   }
 
@@ -217,9 +223,19 @@ class ColorHelper {
     return color.a;
   }
 
-  // Create color with alpha (float 0.0-1.0)
+  // Create color with alpha (float 0.0-1.0) - FIXED METHOD
   static Color withAlpha(Color color, double alpha) {
-    return color.withValues(alpha: alpha);
+    return color.withAlpha((alpha * 255).round());
+  }
+
+  // Alternative: Create color with opacity using Color.fromRGBO
+  static Color withOpacityValue(Color color, double opacity) {
+    return Color.fromRGBO(
+      (color.r * 255).round(),
+      (color.g * 255).round(),
+      (color.b * 255).round(),
+      opacity.clamp(0.0, 1.0),
+    );
   }
 
   // Get the ARGB32 integer value
@@ -233,7 +249,8 @@ class ColorHelper {
   }
 
   // Check if two colors are approximately equal
-  static bool approximatelyEqual(Color color1, Color color2, {double tolerance = 0.01}) {
+  static bool approximatelyEqual(Color color1, Color color2,
+      {double tolerance = 0.01}) {
     return (color1.r - color2.r).abs() < tolerance &&
         (color1.g - color2.g).abs() < tolerance &&
         (color1.b - color2.b).abs() < tolerance &&
@@ -265,7 +282,8 @@ class ColorHelper {
   }
 
   // Helper: Convert RGB (0-1) to LAB color space (simplified)
-  static (double l, double a, double b) _rgbToLab(double r, double g, double b) {
+  static (double l, double a, double b) _rgbToLab(
+      double r, double g, double b) {
     // Simple approximation - in reality this involves conversion to XYZ first
     // For simplicity, we'll use a basic conversion
     final l = 0.2126 * r + 0.7152 * g + 0.0722 * b;
@@ -306,11 +324,40 @@ class ColorHelper {
   }
 
   // Generate random color within a specific hue range
-  static Color randomWithHue(double hue, {double range = 30, double saturation = 0.8, double lightness = 0.6, double alpha = 1.0}) {
+  static Color randomWithHue(double hue,
+      {double range = 30,
+      double saturation = 0.8,
+      double lightness = 0.6,
+      double alpha = 1.0}) {
     final random = Random();
-    final hueVariation = (random.nextDouble() * 2 - 1) * range; // -range to +range
+    final hueVariation =
+        (random.nextDouble() * 2 - 1) * range; // -range to +range
     final actualHue = (hue + hueVariation) % 360;
 
     return fromHsl(actualHue, saturation, lightness, alpha);
+  }
+
+  static Color primaryWithOpacity(BuildContext context, double opacity) {
+    return withOpacityValue(Theme.of(context).colorScheme.primary, opacity);
+  }
+
+  static Color primaryWithOpacity10(BuildContext context) {
+    return primaryWithOpacity(context, 0.1);
+  }
+
+  static Color primaryWithOpacity20(BuildContext context) {
+    return primaryWithOpacity(context, 0.2);
+  }
+
+  static Color primaryWithOpacity50(BuildContext context) {
+    return primaryWithOpacity(context, 0.5);
+  }
+
+  static Color whiteWithOpacity(BuildContext context, double opacity) {
+    return withOpacityValue(Colors.white, opacity);
+  }
+
+  static Color blackWithOpacity(BuildContext context, double opacity) {
+    return withOpacityValue(Colors.black, opacity);
   }
 }
