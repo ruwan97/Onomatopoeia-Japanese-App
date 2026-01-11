@@ -5,7 +5,6 @@ import 'package:onomatopoeia_app/core/themes/app_colors.dart';
 import 'package:onomatopoeia_app/data/providers/onomatopoeia_provider.dart';
 import 'package:onomatopoeia_app/presentation/widgets/home/search_bar.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/loading_indicator.dart';
-import 'package:onomatopoeia_app/presentation/pages/quiz_menu_page.dart';
 import 'package:onomatopoeia_app/data/providers/user_provider.dart';
 import 'package:onomatopoeia_app/presentation/widgets/home/featured_card.dart';
 import '../../data/models/onomatopoeia_model.dart';
@@ -158,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                     physics: const ClampingScrollPhysics(),
                     itemCount: sortOptions.length,
                     separatorBuilder: (context, index) =>
-                    const SizedBox(height: 6),
+                        const SizedBox(height: 6),
                     itemBuilder: (context, index) {
                       final option = sortOptions[index];
                       final isSelected = _currentSort == option['value'];
@@ -502,40 +501,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-      ),
-
-      // Floating Action Button for Quiz
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 24),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).colorScheme.primary.withAlpha(102),
-                blurRadius: 15,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const QuizMenuPage(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.quiz_outlined),
-            label: const Text('Quiz'),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-          ),
-        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
