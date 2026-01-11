@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +27,10 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
     super.initState();
     // Increment view count when page opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<OnomatopoeiaProvider>(context, listen: false)
-          .incrementViewCount(widget.onomatopoeia.id);
+      if (mounted) {
+        Provider.of<OnomatopoeiaProvider>(context, listen: false)
+            .incrementViewCount(widget.onomatopoeia.id);
+      }
     });
   }
 
@@ -40,19 +43,25 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
   Future<void> _playAudio() async {
     if (_isPlaying) {
       await _audioPlayer.stop();
-      setState(() => _isPlaying = false);
+      if (mounted) {
+        setState(() => _isPlaying = false);
+      }
       return;
     }
 
-    setState(() => _isLoadingSound = true);
+    if (mounted) {
+      setState(() => _isLoadingSound = true);
+    }
 
     try {
       await _audioPlayer.play(AssetSource(widget.onomatopoeia.soundPath));
 
-      setState(() {
-        _isPlaying = true;
-        _isLoadingSound = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isPlaying = true;
+          _isLoadingSound = false;
+        });
+      }
 
       _audioPlayer.onPlayerComplete.listen((event) {
         if (mounted) {
@@ -60,16 +69,22 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
         }
       });
     } catch (e) {
-      setState(() {
-        _isPlaying = false;
-        _isLoadingSound = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Could not play audio: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+          _isLoadingSound = false;
+        });
+      }
+
+      // Check mounted before showing snackbar
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Could not play audio: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -122,20 +137,7 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
                         ],
                       ),
                     ),
-                    child: widget.onomatopoeia.imagePath.isNotEmpty
-                        ? Image.asset(
-                            widget.onomatopoeia.imagePath,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          )
-                        : Center(
-                            child: Icon(
-                              _getCategoryIcon(widget.onomatopoeia.category),
-                              size: 120,
-                              color: Colors.white.withAlpha(179),
-                            ),
-                          ),
+                    child: _buildImageSection(context, categoryColor),
                   ),
                   // Gradient Overlay
                   Container(
@@ -550,5 +552,43 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
       default:
         return Icons.category;
     }
+  }
+
+  Widget _buildImageSection(BuildContext context, Color categoryColor) {
+    final imagePath = widget.onomatopoeia.imagePath;
+
+    // If no image path is provided or it's empty, show icon
+    if (imagePath.isEmpty) {
+      return Center(
+        child: Icon(
+          _getCategoryIcon(widget.onomatopoeia.category),
+          size: 120,
+          color: Colors.white.withAlpha(179),
+        ),
+      );
+    }
+
+    // Try to load the image with error handling
+    return Image.asset(
+      imagePath,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
+      errorBuilder: (context, error, stackTrace) {
+        // Log the error for debugging
+        if (kDebugMode) {
+          print('Error loading image: $imagePath - $error');
+        }
+
+        // If image fails to load, show icon
+        return Center(
+          child: Icon(
+            _getCategoryIcon(widget.onomatopoeia.category),
+            size: 120,
+            color: Colors.white.withAlpha(179),
+          ),
+        );
+      },
+    );
   }
 }

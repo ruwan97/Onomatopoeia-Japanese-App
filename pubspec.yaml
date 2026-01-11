@@ -69,6 +69,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/placeholders/
+    - assets/images/onomatopoeia/animal/
+    - assets/images/onomatopoeia/nature/
+    - assets/images/onomatopoeia/human/
+    - assets/images/onomatopoeia/object/
+    - assets/images/onomatopoeia/food/
+    - assets/images/onomatopoeia/vehicle/
+    - assets/images/onomatopoeia/music/
+    - assets/images/onomatopoeia/technology/
     - assets/sounds/
     - assets/lottie/
