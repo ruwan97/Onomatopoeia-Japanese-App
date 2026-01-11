@@ -33,53 +33,50 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     _focusNode.unfocus();
   }
 
-  // Helper method to get color with opacity
-  Color _getColorWithOpacity(Color color, double opacity) {
-    return Color.fromARGB(
-      ((color.a * 255.0) * opacity).round().clamp(0, 255),
-      (color.r * 255.0).round().clamp(0, 255),
-      (color.g * 255.0).round().clamp(0, 255),
-      (color.b * 255.0).round().clamp(0, 255),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final onSurfaceColor = Theme.of(context).colorScheme.onSurface;
-
-    return TextField(
-      controller: _controller,
-      focusNode: _focusNode,
-      decoration: InputDecoration(
-        hintText: 'Search onomatopoeia...',
-        hintStyle: AppTextStyles.bodyMedium.copyWith(
-          color: _getColorWithOpacity(onSurfaceColor, 0.5),
-        ),
-        prefixIcon: Icon(
-          Icons.search,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        suffixIcon: _controller.text.isNotEmpty
-            ? IconButton(
-          icon: Icon(
-            Icons.clear,
-            color: _getColorWithOpacity(onSurfaceColor, 0.5),
+    return SizedBox(
+      height: 48, // Fixed height
+      child: Material(
+        color: Colors.white.withAlpha(230),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Icon(
+                Icons.search,
+                color: Theme.of(context).colorScheme.primary,
+                size: 20,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: TextField(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  decoration: const InputDecoration(
+                    hintText: 'Search onomatopoeia...',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                    isDense: true,
+                  ),
+                  style: AppTextStyles.bodyMedium,
+                ),
+              ),
+              if (_controller.text.isNotEmpty)
+                GestureDetector(
+                  onTap: _clearSearch,
+                  child: Icon(
+                    Icons.clear,
+                    size: 20,
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(128),
+                  ),
+                ),
+            ],
           ),
-          onPressed: _clearSearch,
-        )
-            : null,
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 0,
         ),
       ),
-      style: AppTextStyles.bodyMedium,
     );
   }
 
