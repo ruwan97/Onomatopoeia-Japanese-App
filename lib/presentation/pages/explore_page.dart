@@ -75,14 +75,14 @@ class _ExplorePageState extends State<ExplorePage>
                     tabs: _categories
                         .map((category) => Tab(text: category))
                         .toList(),
-                    labelColor: Theme.of(context).colorScheme.primary,
+                    labelColor: AppColors.doraemonBlue,
                     unselectedLabelColor: Theme.of(context)
                         .colorScheme
                         .onSurface
                         .withValues(alpha: 0.6),
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorPadding: const EdgeInsets.symmetric(horizontal: 4),
-                    indicatorColor: Theme.of(context).colorScheme.primary,
+                    indicatorColor: AppColors.doraemonBlue,
                     isScrollable: true,
                   ),
                 ),

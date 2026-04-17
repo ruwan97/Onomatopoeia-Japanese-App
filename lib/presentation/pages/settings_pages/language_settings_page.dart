@@ -5,6 +5,8 @@ import 'package:onomatopoeia_app/core/utils/helpers/color_helper.dart';
 import 'package:onomatopoeia_app/data/providers/user_provider.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/app_bar_custom.dart';
 
+import '../../../core/themes/app_colors.dart';
+
 class LanguageSettingsPage extends StatefulWidget {
   const LanguageSettingsPage({super.key});
 
@@ -43,7 +45,7 @@ class _LanguageSettingsPageState extends State<LanguageSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).colorScheme.primary;
+    const doraemonBlue = AppColors.doraemonBlue;
 
     return Scaffold(
       appBar: const AppBarCustom(
@@ -75,7 +77,7 @@ class _LanguageSettingsPageState extends State<LanguageSettingsPage> {
                         ? const TextStyle(fontSize: 20)
                         : AppTextStyles.bodyMedium.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: primaryColor,
+                            color: doraemonBlue,
                           ),
                   ),
                 ),
@@ -83,9 +85,9 @@ class _LanguageSettingsPageState extends State<LanguageSettingsPage> {
               title: Text(language['name']!),
               subtitle: Text(language['native']!),
               trailing: isSelected
-                  ? Icon(
+                  ? const Icon(
                       Icons.check_circle,
-                      color: primaryColor,
+                      color: doraemonBlue,
                     )
                   : null,
               onTap: () => _selectLanguage(language['code']!),

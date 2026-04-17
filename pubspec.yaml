@@ -69,6 +69,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/doraemon/
     - assets/images/placeholders/
     - assets/images/onomatopoeia/animal/
     - assets/images/onomatopoeia/nature/

@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                     physics: const ClampingScrollPhysics(),
                     itemCount: sortOptions.length,
                     separatorBuilder: (context, index) =>
-                        const SizedBox(height: 6),
+                    const SizedBox(height: 6),
                     itemBuilder: (context, index) {
                       final option = sortOptions[index];
                       final isSelected = _currentSort == option['value'];
@@ -255,19 +255,19 @@ class _HomePageState extends State<HomePage> {
           ),
           boxShadow: isSelected
               ? [
-                  BoxShadow(
-                    color: color.withAlpha(40),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ]
+            BoxShadow(
+              color: color.withAlpha(40),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ]
               : [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(10),
-                    blurRadius: 4,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
+            BoxShadow(
+              color: Colors.black.withAlpha(10),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         margin: const EdgeInsets.symmetric(vertical: 4),
@@ -360,149 +360,205 @@ class _HomePageState extends State<HomePage> {
         child: provider.isLoading
             ? const LoadingIndicator()
             : NestedScrollView(
-                headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  return [
-                    SliverAppBar(
-                      expandedHeight: 180,
-                      floating: false,
-                      pinned: true,
-                      snap: false,
-                      stretch: true,
-                      flexibleSpace: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return FlexibleSpaceBar(
-                            stretchModes: const [StretchMode.zoomBackground],
-                            background: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Theme.of(context).colorScheme.primary,
-                                    Theme.of(context)
-                                        .colorScheme
-                                        .primary
-                                        .withAlpha(204),
-                                  ],
-                                ),
-                              ),
-                              child: SafeArea(
-                                bottom: false,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 24,
-                                    vertical: 20,
-                                  ),
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                expandedHeight: 160, // Reduced height
+                floating: false,
+                pinned: true,
+                snap: false,
+                stretch: true,
+                flexibleSpace: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return FlexibleSpaceBar(
+                      stretchModes: const [StretchMode.zoomBackground],
+                      background: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              AppColors.doraemonLightBlue, // Light blue
+                              AppColors.doraemonBlue, // Doraemon blue
+                            ],
+                          ),
+                        ),
+                        child: SafeArea(
+                          bottom: false,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 16,
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Greeting Section
+                                Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       // Greeting
                                       Text(
                                         'Welcome back,',
                                         style: AppTextStyles.bodyLarge.copyWith(
                                           color: Colors.white.withAlpha(204),
+                                          fontSize: 16,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
                                         userStats['username'] ?? 'Learner',
-                                        style: AppTextStyles.headlineLarge
-                                            .copyWith(
+                                        style: AppTextStyles.headlineLarge.copyWith(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
+                                          fontSize: 32,
                                         ),
                                       ),
-                                      const SizedBox(height: 16),
+                                      const SizedBox(height: 12),
                                       // Search Bar
                                       SearchBarWidget(
                                         onSearchChanged:
-                                            provider.searchOnomatopoeia,
+                                        provider.searchOnomatopoeia,
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
+
+                                // Doraemon Character - Using Image
+                                _buildDoraemonImage(),
+                              ],
                             ),
-                          );
-                        },
+                          ),
+                        ),
                       ),
-                    ),
-                  ];
-                },
-                body: CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    // Main Content
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 16),
-                        child: Column(
+                    );
+                  },
+                ),
+              ),
+            ];
+          },
+          body: CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              // Main Content
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24, vertical: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Quick Stats Section
+                      _buildQuickStats(context, userStats),
+
+                      const SizedBox(height: 24),
+
+                      // Categories Section
+                      _buildCategoriesSection(context, provider),
+
+                      const SizedBox(height: 24),
+
+                      // Featured Section (only show if we have featured items)
+                      if (provider.onomatopoeiaList
+                          .any((item) => item.viewCount > 10))
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Quick Stats Section
-                            _buildQuickStats(context, userStats),
-
-                            const SizedBox(height: 24),
-
-                            // Categories Section
-                            _buildCategoriesSection(context, provider),
-
-                            const SizedBox(height: 24),
-
-                            // Featured Section (only show if we have featured items)
-                            if (provider.onomatopoeiaList
-                                .any((item) => item.viewCount > 10))
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _buildFeaturedSection(context, provider),
-                                  const SizedBox(height: 16),
-                                ],
-                              ),
-
-                            // Results Header
-                            _buildResultsHeader(context, provider),
-
+                            _buildFeaturedSection(context, provider),
                             const SizedBox(height: 16),
                           ],
                         ),
-                      ),
-                    ),
 
-                    // Onomatopoeia Grid
-                    SliverPadding(
-                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 160),
-                      sliver: provider.filteredList.isEmpty
-                          ? SliverToBoxAdapter(
-                              child: _buildEmptyContent(context, provider),
-                            )
-                          : SliverGrid(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                                childAspectRatio: 0.85,
-                              ),
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  final onomatopoeia =
-                                      provider.filteredList[index];
-                                  return _buildCompactOnomatopoeiaCard(
-                                      onomatopoeia, context);
-                                },
-                                childCount: provider.filteredList.length,
-                              ),
-                            ),
-                    ),
-                  ],
+                      // Results Header
+                      _buildResultsHeader(context, provider),
+
+                      const SizedBox(height: 16),
+                    ],
+                  ),
                 ),
               ),
+
+              // Onomatopoeia Grid
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(24, 0, 24, 160),
+                sliver: provider.filteredList.isEmpty
+                    ? SliverToBoxAdapter(
+                  child: _buildEmptyContent(context, provider),
+                )
+                    : SliverGrid(
+                  gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.85,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                      final onomatopoeia =
+                      provider.filteredList[index];
+                      return _buildCompactOnomatopoeiaCard(
+                          onomatopoeia, context);
+                    },
+                    childCount: provider.filteredList.length,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  // Doraemon Image Widget
+  Widget _buildDoraemonImage() {
+    return Container(
+      margin: const EdgeInsets.only(left: 16, top: 8),
+      child: Container(
+        width: 80, // Smaller size
+        height: 80, // Smaller size
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.white,
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha(30),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: Image.asset(
+            'assets/images/doraemon/doraemon.png', // Your Doraemon image path
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              // Fallback to simple blue circle if image not found
+              return Container(
+                decoration: BoxDecoration(
+                  color: AppColors.doraemonBlue,
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.pets, // Fallback icon
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 
@@ -539,7 +595,7 @@ class _HomePageState extends State<HomePage> {
             context: context,
             value: '${stats['learnedWords']}',
             label: 'Words',
-            color: Colors.blue,
+            color: AppColors.doraemonBlue,
             icon: Icons.book,
           ),
           Container(
@@ -654,13 +710,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       boxShadow: isSelected
                           ? [
-                              BoxShadow(
-                                color:
-                                    _getCategoryColor(category).withAlpha(51),
-                                blurRadius: 15,
-                                offset: const Offset(0, 5),
-                              ),
-                            ]
+                        BoxShadow(
+                          color:
+                          _getCategoryColor(category).withAlpha(51),
+                          blurRadius: 15,
+                          offset: const Offset(0, 5),
+                        ),
+                      ]
                           : null,
                     ),
                     child: Column(
@@ -671,9 +727,9 @@ class _HomePageState extends State<HomePage> {
                           color: isSelected
                               ? _getCategoryColor(category)
                               : Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withAlpha(153),
+                              .colorScheme
+                              .onSurface
+                              .withAlpha(153),
                           size: 32,
                         ),
                         const SizedBox(height: 8),
@@ -686,9 +742,9 @@ class _HomePageState extends State<HomePage> {
                             color: isSelected
                                 ? _getCategoryColor(category)
                                 : Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withAlpha(153),
+                                .colorScheme
+                                .onSurface
+                                .withAlpha(153),
                           ),
                           textAlign: TextAlign.center,
                           maxLines: 2,
@@ -730,23 +786,23 @@ class _HomePageState extends State<HomePage> {
               const Spacer(),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withAlpha(26),
+                  color: AppColors.doraemonBlue.withAlpha(26),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.local_fire_department,
                       size: 16,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: AppColors.doraemonBlue,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       'Trending',
                       style: AppTextStyles.buttonSmall.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: AppColors.doraemonBlue,
                       ),
                     ),
                   ],
@@ -796,16 +852,16 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.sort,
                   size: 16,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: AppColors.doraemonBlue,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   _getSortLabel(_currentSort),
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: AppColors.doraemonBlue,
                   ),
                 ),
               ],
@@ -816,6 +872,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // FIXED: Overflow error fixed
   Widget _buildCompactOnomatopoeiaCard(
       Onomatopoeia onomatopoeia, BuildContext context) {
     final categoryColor = _getCategoryColor(onomatopoeia.category);
@@ -824,190 +881,184 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         _navigateToDetailsPage(context, onomatopoeia);
       },
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          minHeight: 180,
-          maxHeight: 220,
+      child: Container(
+        height: 220, // Fixed height instead of ConstrainedBox
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha(26),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withAlpha(26),
-                blurRadius: 10,
-                offset: const Offset(0, 5),
-              ),
-            ],
-          ),
-          child: Stack(
-            children: [
-              // Background color with gradient
-              Positioned.fill(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        categoryColor.withAlpha(51),
-                        categoryColor.withAlpha(26),
-                      ],
-                    ),
+        child: Stack(
+          children: [
+            // Background color with gradient
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      categoryColor.withAlpha(51),
+                      categoryColor.withAlpha(26),
+                    ],
                   ),
                 ),
               ),
+            ),
 
-              // Content
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Category Badge
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: categoryColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          onomatopoeia.category,
-                          style: AppTextStyles.caption.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+            // Content
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Category Badge
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: categoryColor,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-
-                    // Japanese Text
-                    Text(
-                      onomatopoeia.japanese,
-                      style: AppTextStyles.japaneseMedium.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 22,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-
-                    // Romaji
-                    Text(
-                      onomatopoeia.romaji,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withAlpha(153),
-                        fontStyle: FontStyle.italic,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 12),
-
-                    // Meaning Preview
-                    Expanded(
                       child: Text(
-                        onomatopoeia.meaning,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          fontWeight: FontWeight.w500,
+                        onomatopoeia.category,
+                        style: AppTextStyles.caption.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                  ),
+                  const SizedBox(height: 12),
 
-                    const SizedBox(height: 12),
+                  // Japanese Text
+                  Text(
+                    onomatopoeia.japanese,
+                    style: AppTextStyles.japaneseMedium.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 22,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
 
-                    // Footer
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Difficulty
-                        Row(
-                          children: List.generate(5, (i) {
-                            return Icon(
-                              i < onomatopoeia.difficulty
-                                  ? Icons.star
-                                  : Icons.star_border,
-                              size: 12,
-                              color: Colors.amber,
-                            );
-                          }),
-                        ),
-                        // View Count
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.remove_red_eye_outlined,
-                              size: 12,
+                  // Romaji
+                  Text(
+                    onomatopoeia.romaji,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withAlpha(153),
+                      fontStyle: FontStyle.italic,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 12),
+
+                  // Meaning Preview - FIXED: Use Flexible instead of Expanded
+                  Flexible(
+                    child: Text(
+                      onomatopoeia.meaning,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+
+                  const Spacer(), // Pushes footer to bottom
+
+                  // Footer
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Difficulty
+                      Row(
+                        children: List.generate(5, (i) {
+                          return Icon(
+                            i < onomatopoeia.difficulty
+                                ? Icons.star
+                                : Icons.star_border,
+                            size: 12,
+                            color: Colors.amber,
+                          );
+                        }),
+                      ),
+                      // View Count
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.remove_red_eye_outlined,
+                            size: 12,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withAlpha(153),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${onomatopoeia.viewCount}',
+                            style: AppTextStyles.caption.copyWith(
                               color: Theme.of(context)
                                   .colorScheme
                                   .onSurface
                                   .withAlpha(153),
                             ),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${onomatopoeia.viewCount}',
-                              style: AppTextStyles.caption.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withAlpha(153),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
+            ),
 
-              // Favorite Button
-              Positioned(
-                top: 12,
-                right: 12,
-                child: GestureDetector(
-                  onTap: () {
-                    Provider.of<OnomatopoeiaProvider>(context, listen: false)
-                        .toggleFavorite(onomatopoeia.id);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withAlpha(26),
-                          blurRadius: 8,
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      onomatopoeia.isFavorite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      size: 18,
-                      color: onomatopoeia.isFavorite ? Colors.red : Colors.grey,
-                    ),
+            // Favorite Button
+            Positioned(
+              top: 12,
+              right: 12,
+              child: GestureDetector(
+                onTap: () {
+                  Provider.of<OnomatopoeiaProvider>(context, listen: false)
+                      .toggleFavorite(onomatopoeia.id);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(26),
+                        blurRadius: 8,
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    onomatopoeia.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    size: 18,
+                    color: onomatopoeia.isFavorite ? Colors.red : Colors.grey,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -1047,7 +1098,7 @@ class _HomePageState extends State<HomePage> {
             child: Icon(
               Icons.search_off_rounded,
               size: 80,
-              color: Theme.of(context).colorScheme.primary.withAlpha(102),
+              color: AppColors.doraemonBlue.withAlpha(102),
             ),
           ),
           const SizedBox(height: 32),
@@ -1084,8 +1135,12 @@ class _HomePageState extends State<HomePage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
+              backgroundColor: AppColors.doraemonBlue,
             ),
-            child: const Text('Clear All Filters'),
+            child: const Text(
+              'Clear All Filters',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -1095,7 +1150,7 @@ class _HomePageState extends State<HomePage> {
   Color _getCategoryColor(String category) {
     switch (category) {
       case 'All':
-        return Theme.of(context).colorScheme.primary;
+        return AppColors.doraemonBlue;
       case 'Animal':
         return AppColors.animalColor;
       case 'Nature':
@@ -1113,7 +1168,7 @@ class _HomePageState extends State<HomePage> {
       case 'Technology':
         return AppColors.technologyColor;
       default:
-        return Theme.of(context).colorScheme.primary;
+        return AppColors.doraemonBlue;
     }
   }
 

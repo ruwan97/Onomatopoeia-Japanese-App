@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+import '../../../core/themes/app_colors.dart';
+
 class AudioPlayerWidget extends StatefulWidget {
   final String soundPath;
 
@@ -84,7 +86,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         style: const TextStyle(fontSize: 14),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: AppColors.doraemonBlue,
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       ),

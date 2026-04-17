@@ -12,6 +12,8 @@ import 'package:onomatopoeia_app/presentation/widgets/onomatopoeia/audio_player_
 import 'package:onomatopoeia_app/presentation/animations/fade_animation.dart';
 import 'package:onomatopoeia_app/presentation/animations/scale_animation.dart';
 
+import '../../core/themes/app_colors.dart';
+
 class QuizPage extends StatefulWidget {
   final String? category;
   final int? difficulty;
@@ -261,7 +263,7 @@ class _QuizPageState extends State<QuizPage> {
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: AppColors.doraemonBlue,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -320,7 +322,7 @@ class _QuizPageState extends State<QuizPage> {
           child: LinearProgressIndicator(
             value: (_currentQuestionIndex + 1) / _questions.length,
             backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-            color: Theme.of(context).colorScheme.primary,
+            color: AppColors.doraemonBlue,
             minHeight: 8,
             borderRadius: BorderRadius.circular(4),
           ),
@@ -349,17 +351,17 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.help_outline,
                       size: 16,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: AppColors.doraemonBlue,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       '${_currentQuestionIndex + 1}/${_questions.length}',
                       style: AppTextStyles.bodyMedium.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: AppColors.doraemonBlue,
                       ),
                     ),
                   ],
@@ -377,17 +379,17 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.emoji_events,
                       size: 16,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: AppColors.doraemonBlue,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       '$_score',
                       style: AppTextStyles.bodyMedium.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: AppColors.doraemonBlue,
                       ),
                     ),
                   ],
@@ -403,10 +405,10 @@ class _QuizPageState extends State<QuizPage> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                  AppColors.doraemonLightBlue,
+                  AppColors.doraemonBlue,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -569,7 +571,7 @@ class _QuizPageState extends State<QuizPage> {
                                 String.fromCharCode(65 + index), // A, B, C, D
                                 style: AppTextStyles.bodyMedium.copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: AppColors.doraemonBlue,
                                 ),
                               ),
                             ),
@@ -632,7 +634,7 @@ class _QuizPageState extends State<QuizPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       foregroundColor: _currentQuestionIndex > 0
-                          ? Theme.of(context).colorScheme.primary
+                          ? AppColors.doraemonBlue
                           : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.38),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -660,10 +662,10 @@ class _QuizPageState extends State<QuizPage> {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: isAnswered
-                        ? LinearGradient(
+                        ? const LinearGradient(
                       colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                        AppColors.doraemonLightBlue,
+                        AppColors.doraemonBlue,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -828,10 +830,10 @@ class _QuizPageState extends State<QuizPage> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [
-                          Theme.of(context).colorScheme.primary,
-                          Theme.of(context).colorScheme.primary.withValues(alpha: 0.8),
+                          AppColors.doraemonLightBlue,
+                          AppColors.doraemonBlue,
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -873,9 +875,9 @@ class _QuizPageState extends State<QuizPage> {
                   child: OutlinedButton(
                     onPressed: _exitQuiz,
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.primary,
-                      side: BorderSide(
-                        color: Theme.of(context).colorScheme.primary,
+                      foregroundColor: AppColors.doraemonBlue,
+                      side: const BorderSide(
+                        color: AppColors.doraemonBlue,
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(

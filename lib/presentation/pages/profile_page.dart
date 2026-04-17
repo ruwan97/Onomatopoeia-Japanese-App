@@ -10,6 +10,8 @@ import 'package:onomatopoeia_app/presentation/pages/settings_pages/notifications
 import 'package:onomatopoeia_app/presentation/pages/settings_pages/language_settings_page.dart';
 import 'package:onomatopoeia_app/services/navigation_service.dart';
 
+import '../../core/themes/app_colors.dart';
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -51,19 +53,20 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildProfileHeader(BuildContext context, UserProvider userProvider) {
-    final primaryColor = Theme.of(context).colorScheme.primary;
+    const doraemonLightBlue = AppColors.doraemonLightBlue;
+    const doraemonBlue = AppColors.doraemonBlue;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     // Create gradient colors based on theme
     final Color startColor = isDarkMode
         ? Color.alphaBlend(
-            primaryColor.withAlpha(204), Colors.transparent) // 0.8 opacity
-        : primaryColor;
+            doraemonLightBlue.withAlpha(204), Colors.transparent) // 0.8 opacity
+        : doraemonLightBlue;
 
     final Color endColor = isDarkMode
         ? Color.alphaBlend(
-            primaryColor.withAlpha(153), Colors.transparent) // 0.6 opacity
-        : Color.alphaBlend(Colors.white.withAlpha(51), primaryColor);
+            doraemonBlue.withAlpha(153), Colors.transparent) // 0.6 opacity
+        : Color.alphaBlend(Colors.white.withAlpha(51), doraemonBlue);
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -85,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                 child: Text(
                   userProvider.username.substring(0, 2).toUpperCase(),
                   style: AppTextStyles.headlineLarge.copyWith(
-                    color: primaryColor,
+                    color: doraemonLightBlue,
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                   ),
@@ -487,7 +490,7 @@ class ProfilePage extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
+      leading: Icon(icon, color: AppColors.doraemonBlue),
       title: Text(title),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
@@ -502,7 +505,7 @@ class ProfilePage extends StatelessWidget {
     required ValueChanged<bool> onChanged,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
+      leading: Icon(icon, color: AppColors.doraemonBlue),
       title: Text(title),
       trailing: Switch(
         value: value,
@@ -565,8 +568,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 const Divider(height: 0, indent: 72),
                 ListTile(
-                  leading: Icon(Icons.info,
-                      color: Theme.of(context).colorScheme.primary),
+                  leading: const Icon(Icons.info,
+                      color: AppColors.doraemonBlue),
                   title: const Text('App Version'),
                   trailing: Text(
                     '1.0.0',
@@ -645,7 +648,7 @@ class ProfilePage extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
+      leading: Icon(icon, color: AppColors.doraemonBlue),
       title: Text(title),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,

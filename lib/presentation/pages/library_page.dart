@@ -6,6 +6,7 @@ import 'package:onomatopoeia_app/data/providers/user_provider.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/app_bar_custom.dart';
 import 'package:onomatopoeia_app/presentation/widgets/common/loading_indicator.dart';
 
+import '../../core/themes/app_colors.dart';
 import '../../data/models/onomatopoeia_model.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -62,9 +63,9 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
             child: TabBar(
               controller: _tabController,
               tabs: _tabs.map((tab) => Tab(text: tab)).toList(),
-              labelColor: Theme.of(context).colorScheme.primary,
+              labelColor: AppColors.doraemonBlue,
               unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
-              indicatorColor: Theme.of(context).colorScheme.primary,
+              indicatorColor: AppColors.doraemonBlue,
               indicatorSize: TabBarIndicatorSize.label,
               isScrollable: true,
             ),
@@ -92,12 +93,12 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Theme.of(context).colorScheme.primary,
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.8), // FIXED
+            AppColors.doraemonLightBlue, // Light blue
+            AppColors.doraemonBlue, // Doraemon blue
           ],
         ),
         borderRadius: BorderRadius.circular(20),
@@ -138,7 +139,7 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
                 child: Text(
                   '${userProvider.totalMastery}%',
                   style: AppTextStyles.headlineSmall.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: AppColors.doraemonBlue,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -319,7 +320,7 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
           child: Text(
             item.japanese[0],
             style: AppTextStyles.japaneseMedium.copyWith(
-              color: Theme.of(context).colorScheme.primary,
+              color: AppColors.doraemonBlue,
             ),
           ),
         ),
@@ -351,7 +352,7 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
             CircularProgressIndicator(
               value: item.mastery,
               strokeWidth: 3,
-              color: Theme.of(context).colorScheme.primary,
+              color: AppColors.doraemonBlue,
             ),
           ],
         ),

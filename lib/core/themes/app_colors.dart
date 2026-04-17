@@ -48,6 +48,11 @@ class AppColors {
   static const Color musicColor = Color(0xFF009688);
   static const Color technologyColor = Color(0xFF607D8B);
 
+  // Doraemon Theme Colors
+  static const Color doraemonBlue = Color(0xFF2196F3);
+  static const Color doraemonLightBlue = Color(0xFF4FC3F7);
+  static const Color doraemonDarkBlue = Color(0xFF0D47A1);
+
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(
     colors: [primary, primaryLight],
