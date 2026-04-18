@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-import '../../../core/themes/app_colors.dart';
-
 class AudioPlayerWidget extends StatefulWidget {
   final String soundPath;
 
@@ -20,7 +18,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   bool _isPlaying = false;
   bool _isLoading = false;
 
-  Future<void> _playSound() async {
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future<void> _playAudio() async {
     if (_isPlaying) {
       await _audioPlayer.stop();
       setState(() => _isPlaying = false);
@@ -30,14 +34,25 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     setState(() => _isLoading = true);
 
     try {
-      await _audioPlayer.play(AssetSource(widget.soundPath));
+      // Ensure the sound path is correct
+      String assetPath = widget.soundPath;
 
-      if (mounted) {
-        setState(() {
-          _isPlaying = true;
-          _isLoading = false;
-        });
+      // Remove leading slash if present
+      if (assetPath.startsWith('/')) {
+        assetPath = assetPath.substring(1);
       }
+
+      // Add assets prefix if not present
+      if (!assetPath.startsWith('assets/')) {
+        assetPath = 'assets/$assetPath';
+      }
+
+      await _audioPlayer.play(AssetSource(assetPath));
+
+      setState(() {
+        _isPlaying = true;
+        _isLoading = false;
+      });
 
       _audioPlayer.onPlayerComplete.listen((event) {
         if (mounted) {
@@ -45,15 +60,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         }
       });
     } catch (e) {
+      print('Error playing audio: $e');
+      setState(() => _isLoading = false);
+
       if (mounted) {
-        setState(() {
-          _isPlaying = false;
-          _isLoading = false;
-        });
-        // Show error snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to play sound: $e'),
+            content: Text('Could not play audio: ${widget.soundPath}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -62,34 +75,20 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   }
 
   @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: _playSound,
+    return IconButton(
+      onPressed: _playAudio,
       icon: _isLoading
           ? const SizedBox(
-        width: 20,
-        height: 20,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      )
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
           : Icon(
-        _isPlaying ? Icons.stop : Icons.volume_up,
-        size: 20,
-      ),
-      label: Text(
-        _isPlaying ? 'STOP' : 'PLAY',
-        style: const TextStyle(fontSize: 14),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.doraemonBlue,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      ),
+              _isPlaying ? Icons.stop : Icons.volume_up,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+      tooltip: _isPlaying ? 'Stop' : 'Play sound',
     );
   }
 }

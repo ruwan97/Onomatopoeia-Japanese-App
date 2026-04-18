@@ -30,21 +30,25 @@ class OnomatopoeiaAdapter extends TypeAdapter<Onomatopoeia> {
       similarWords: (fields[10] as List).cast<String>(),
       soundPath: fields[11] as String,
       difficulty: fields[12] as int,
-      isFavorite: fields[13] as bool,
-      viewCount: fields[14] as int,
-      practiceCount: fields[15] as int,
-      addedDate: fields[16] as DateTime?,
-      mastery: fields[17] as double,
-      lastPracticed: fields[18] as DateTime?,
-      imagePath: fields[19] as String,
-      tags: (fields[20] as List).cast<String>(),
+      imagePath: fields[13] as String,
+      tags: (fields[14] as List).cast<String>(),
+      isFavorite: fields[15] as bool,
+      viewCount: fields[16] as int,
+      addedDate: fields[17] as String,
+      masteryLevel: fields[18] as int,
+      quizAttempts: fields[19] as int,
+      correctAnswers: fields[20] as int,
+      relatedMedia: (fields[21] as List)
+          .map((dynamic e) => (e as Map).cast<String, dynamic>())
+          .toList(),
+      practiceCount: fields[22] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Onomatopoeia obj) {
     writer
-      ..writeByte(21)
+      ..writeByte(23)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -72,21 +76,25 @@ class OnomatopoeiaAdapter extends TypeAdapter<Onomatopoeia> {
       ..writeByte(12)
       ..write(obj.difficulty)
       ..writeByte(13)
-      ..write(obj.isFavorite)
-      ..writeByte(14)
-      ..write(obj.viewCount)
-      ..writeByte(15)
-      ..write(obj.practiceCount)
-      ..writeByte(16)
-      ..write(obj.addedDate)
-      ..writeByte(17)
-      ..write(obj.mastery)
-      ..writeByte(18)
-      ..write(obj.lastPracticed)
-      ..writeByte(19)
       ..write(obj.imagePath)
+      ..writeByte(14)
+      ..write(obj.tags)
+      ..writeByte(15)
+      ..write(obj.isFavorite)
+      ..writeByte(16)
+      ..write(obj.viewCount)
+      ..writeByte(17)
+      ..write(obj.addedDate)
+      ..writeByte(18)
+      ..write(obj.masteryLevel)
+      ..writeByte(19)
+      ..write(obj.quizAttempts)
       ..writeByte(20)
-      ..write(obj.tags);
+      ..write(obj.correctAnswers)
+      ..writeByte(21)
+      ..write(obj.relatedMedia)
+      ..writeByte(22)
+      ..write(obj.practiceCount);
   }
 
   @override

@@ -1,0 +1,2101 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-15",
+  "totalItems": 150,
+  "onomatopoeia": [
+    {
+      "id": "animal_001",
+      "japanese": "ワンワン",
+      "romaji": "wanwan",
+      "meaning": "Dog barking sound",
+      "category": "Animal",
+      "subCategory": "Dog sounds",
+      "exampleSentence": "犬がワンワンと吠えている。",
+      "exampleTranslation": "The dog is barking.",
+      "soundType": "giongo",
+      "usageContext": "Used for dogs barking, similar to 'woof woof'",
+      "similarWords": [
+        "キャンキャン",
+        "ウーウー"
+      ],
+      "soundPath": "sounds/animal/wanwan.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/animal/dog.png",
+      "tags": [
+        "pet",
+        "mammal",
+        "domestic",
+        "common"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": [
+        {
+          "type": "video",
+          "url": "https://youtube.com/watch?v=example1",
+          "title": "Japanese Dog Sounds"
+        }
+      ]
+    },
+    {
+      "id": "animal_002",
+      "japanese": "ニャーニャー",
+      "romaji": "nyānyā",
+      "meaning": "Cat meowing sound",
+      "category": "Animal",
+      "subCategory": "Cat sounds",
+      "exampleSentence": "猫がニャーニャーと鳴いている。",
+      "exampleTranslation": "The cat is meowing.",
+      "soundType": "giongo",
+      "usageContext": "Used for cats meowing",
+      "similarWords": [
+        "ミャーミャー",
+        "ニャン"
+      ],
+      "soundPath": "sounds/animal/nyanya.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/animal/cat.png",
+      "tags": [
+        "pet",
+        "mammal",
+        "domestic",
+        "common"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_003",
+      "japanese": "チューチュー",
+      "romaji": "chūchū",
+      "meaning": "Mouse/rat squeaking",
+      "category": "Animal",
+      "subCategory": "Rodent sounds",
+      "exampleSentence": "ネズミがチューチュー鳴いている。",
+      "exampleTranslation": "The mouse is squeaking.",
+      "soundType": "giongo",
+      "usageContext": "Mouse or rat sounds",
+      "similarWords": [
+        "キーキー"
+      ],
+      "soundPath": "sounds/animal/chuuchuu.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/mouse.png",
+      "tags": [
+        "rodent",
+        "wild",
+        "small"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_004",
+      "japanese": "カーカー",
+      "romaji": "kākā",
+      "meaning": "Crow cawing",
+      "category": "Animal",
+      "subCategory": "Bird sounds",
+      "exampleSentence": "カラスがカーカーと鳴いている。",
+      "exampleTranslation": "The crow is cawing.",
+      "soundType": "giongo",
+      "usageContext": "Crow or raven sounds",
+      "similarWords": [
+        "ガーガー"
+      ],
+      "soundPath": "sounds/animal/kakaa.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/crow.png",
+      "tags": [
+        "bird",
+        "wild",
+        "urban"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_005",
+      "japanese": "コケコッコー",
+      "romaji": "kokekokkō",
+      "meaning": "Rooster crowing",
+      "category": "Animal",
+      "subCategory": "Bird sounds",
+      "exampleSentence": "雄鶏がコケコッコーと鳴く。",
+      "exampleTranslation": "The rooster crows.",
+      "soundType": "giongo",
+      "usageContext": "Rooster morning call",
+      "similarWords": [
+        "コッコッコー"
+      ],
+      "soundPath": "sounds/animal/kokekokko.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/rooster.png",
+      "tags": [
+        "bird",
+        "farm",
+        "morning"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_006",
+      "japanese": "モーモー",
+      "romaji": "mōmō",
+      "meaning": "Cow mooing",
+      "category": "Animal",
+      "subCategory": "Farm animal sounds",
+      "exampleSentence": "牛がモーモーと鳴く。",
+      "exampleTranslation": "The cow moos.",
+      "soundType": "giongo",
+      "usageContext": "Cow sound",
+      "similarWords": [
+        "ムー",
+        "メー"
+      ],
+      "soundPath": "sounds/animal/moomoo.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/animal/cow.png",
+      "tags": [
+        "mammal",
+        "farm",
+        "large"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_007",
+      "japanese": "メーメー",
+      "romaji": "mēmē",
+      "meaning": "Sheep/Goat bleating",
+      "category": "Animal",
+      "subCategory": "Farm animal sounds",
+      "exampleSentence": "羊がメーメーと鳴く。",
+      "exampleTranslation": "The sheep bleats.",
+      "soundType": "giongo",
+      "usageContext": "Sheep or goat sound",
+      "similarWords": [
+        "ベーベー"
+      ],
+      "soundPath": "sounds/animal/meemee.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/sheep.png",
+      "tags": [
+        "mammal",
+        "farm"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_008",
+      "japanese": "ブーブー",
+      "romaji": "būbū",
+      "meaning": "Pig oinking",
+      "category": "Animal",
+      "subCategory": "Farm animal sounds",
+      "exampleSentence": "豚がブーブーと鳴く。",
+      "exampleTranslation": "The pig oinks.",
+      "soundType": "giongo",
+      "usageContext": "Pig sound",
+      "similarWords": [
+        "ブヒブヒ"
+      ],
+      "soundPath": "sounds/animal/bubu.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/pig.png",
+      "tags": [
+        "mammal",
+        "farm"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_009",
+      "japanese": "ヒヒーン",
+      "romaji": "hihīn",
+      "meaning": "Horse neighing",
+      "category": "Animal",
+      "subCategory": "Farm animal sounds",
+      "exampleSentence": "馬がヒヒーンと鳴く。",
+      "exampleTranslation": "The horse neighs.",
+      "soundType": "giongo",
+      "usageContext": "Horse sound",
+      "similarWords": [
+        "ヒン"
+      ],
+      "soundPath": "sounds/animal/hihiin.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/animal/horse.png",
+      "tags": [
+        "mammal",
+        "farm",
+        "noble"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_010",
+      "japanese": "ガーガー",
+      "romaji": "gāgā",
+      "meaning": "Duck quacking",
+      "category": "Animal",
+      "subCategory": "Bird sounds",
+      "exampleSentence": "アヒルがガーガーと鳴く。",
+      "exampleTranslation": "The duck quacks.",
+      "soundType": "giongo",
+      "usageContext": "Duck sound",
+      "similarWords": [
+        "クワックワッ"
+      ],
+      "soundPath": "sounds/animal/gagaa.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/duck.png",
+      "tags": [
+        "bird",
+        "water",
+        "farm"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_011",
+      "japanese": "ピヨピヨ",
+      "romaji": "piyopiyo",
+      "meaning": "Chick chirping",
+      "category": "Animal",
+      "subCategory": "Bird sounds",
+      "exampleSentence": "ひよこがピヨピヨと鳴く。",
+      "exampleTranslation": "The chicks are chirping.",
+      "soundType": "giongo",
+      "usageContext": "Baby chick sounds",
+      "similarWords": [
+        "チュンチュン"
+      ],
+      "soundPath": "sounds/animal/piyopiyo.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/animal/chick.png",
+      "tags": [
+        "bird",
+        "baby",
+        "farm"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "animal_012",
+      "japanese": "ブンブン",
+      "romaji": "bunbun",
+      "meaning": "Bee buzzing",
+      "category": "Animal",
+      "subCategory": "Insect sounds",
+      "exampleSentence": "蜂がブンブン飛んでいる。",
+      "exampleTranslation": "The bee is buzzing around.",
+      "soundType": "giongo",
+      "usageContext": "Bee or insect buzzing",
+      "similarWords": [
+        "ジージー"
+      ],
+      "soundPath": "sounds/animal/bunbun.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/animal/bee.png",
+      "tags": [
+        "insect",
+        "summer",
+        "buzzing"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_001",
+      "japanese": "ザーザー",
+      "romaji": "zāzā",
+      "meaning": "Sound of heavy rain",
+      "category": "Nature",
+      "subCategory": "Weather sounds",
+      "exampleSentence": "雨がザーザー降っている。",
+      "exampleTranslation": "It's raining heavily.",
+      "soundType": "giongo",
+      "usageContext": "Heavy rainfall",
+      "similarWords": [
+        "パラパラ",
+        "シトシト"
+      ],
+      "soundPath": "sounds/nature/zaza.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/rain.png",
+      "tags": [
+        "weather",
+        "water",
+        "storm"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_002",
+      "japanese": "ピカピカ",
+      "romaji": "pikapika",
+      "meaning": "Shining/sparkling",
+      "category": "Nature",
+      "subCategory": "Light/Weather",
+      "exampleSentence": "星がピカピカ光っている。",
+      "exampleTranslation": "The stars are twinkling.",
+      "soundType": "gitaigo",
+      "usageContext": "Something shiny or sparkling",
+      "similarWords": [
+        "キラキラ",
+        "ギラギラ"
+      ],
+      "soundPath": "sounds/nature/pikapika.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/sparkle.png",
+      "tags": [
+        "light",
+        "bright",
+        "glitter"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_003",
+      "japanese": "ゴロゴロ",
+      "romaji": "gorogoro",
+      "meaning": "Thunder rumbling / Cat purring",
+      "category": "Nature",
+      "subCategory": "Weather sounds",
+      "exampleSentence": "雷がゴロゴロ鳴っている。",
+      "exampleTranslation": "The thunder is rumbling.",
+      "soundType": "giongo",
+      "usageContext": "Thunder or purring sound",
+      "similarWords": [
+        "ドンドン",
+        "ガラガラ"
+      ],
+      "soundPath": "sounds/nature/gorogoro.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/nature/thunder.png",
+      "tags": [
+        "weather",
+        "storm",
+        "loud"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_004",
+      "japanese": "サラサラ",
+      "romaji": "sarasara",
+      "meaning": "Gentle rustling sound",
+      "category": "Nature",
+      "subCategory": "Nature sounds",
+      "exampleSentence": "風で木の葉がサラサラと音を立てる。",
+      "exampleTranslation": "Leaves rustle in the wind.",
+      "soundType": "giongo",
+      "usageContext": "Gentle rustling of leaves or paper",
+      "similarWords": [
+        "カサカサ",
+        "そよそよ"
+      ],
+      "soundPath": "sounds/nature/sarasara.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/leaves.png",
+      "tags": [
+        "wind",
+        "gentle",
+        "peaceful"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_005",
+      "japanese": "ポツポツ",
+      "romaji": "potsupotsu",
+      "meaning": "Dripping sound",
+      "category": "Nature",
+      "subCategory": "Water sounds",
+      "exampleSentence": "雨がポツポツと窓を打つ。",
+      "exampleTranslation": "Raindrops tap on the window.",
+      "soundType": "giongo",
+      "usageContext": "Individual drops of liquid",
+      "similarWords": [
+        "ポタポタ",
+        "ピチャピチャ"
+      ],
+      "soundPath": "sounds/nature/potsupotsu.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/drops.png",
+      "tags": [
+        "water",
+        "rain",
+        "drip"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_006",
+      "japanese": "シトシト",
+      "romaji": "shitoshito",
+      "meaning": "Gentle rain sound",
+      "category": "Nature",
+      "subCategory": "Weather sounds",
+      "exampleSentence": "雨がシトシトと降る。",
+      "exampleTranslation": "It's drizzling.",
+      "soundType": "giongo",
+      "usageContext": "Soft, continuous rain",
+      "similarWords": [
+        "ポツポツ",
+        "パラパラ"
+      ],
+      "soundPath": "sounds/nature/shitoshito.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/drizzle.png",
+      "tags": [
+        "weather",
+        "gentle",
+        "rain"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_007",
+      "japanese": "パラパラ",
+      "romaji": "parapara",
+      "meaning": "Light rain or sprinkling",
+      "category": "Nature",
+      "subCategory": "Weather sounds",
+      "exampleSentence": "雨がパラパラと降り始めた。",
+      "exampleTranslation": "It started to rain lightly.",
+      "soundType": "giongo",
+      "usageContext": "Sprinkling or scattered rain",
+      "similarWords": [
+        "ポツポツ",
+        "シトシト"
+      ],
+      "soundPath": "sounds/nature/parapara.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/light_rain.png",
+      "tags": [
+        "weather",
+        "light",
+        "rain"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_008",
+      "japanese": "ザッザッ",
+      "romaji": "zazzu",
+      "meaning": "Waves crashing",
+      "category": "Nature",
+      "subCategory": "Water sounds",
+      "exampleSentence": "波がザッザッと打ち寄せる。",
+      "exampleTranslation": "The waves crash ashore.",
+      "soundType": "giongo",
+      "usageContext": "Ocean waves hitting shore",
+      "similarWords": [
+        "ドッシュ",
+        "ガシャン"
+      ],
+      "soundPath": "sounds/nature/zazzu.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/nature/waves.png",
+      "tags": [
+        "ocean",
+        "water",
+        "powerful"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_009",
+      "japanese": "ギラギラ",
+      "romaji": "giragira",
+      "meaning": "Glaring/strong shining",
+      "category": "Nature",
+      "subCategory": "Light/Weather",
+      "exampleSentence": "太陽がギラギラと輝いている。",
+      "exampleTranslation": "The sun is glaring brightly.",
+      "soundType": "gitaigo",
+      "usageContext": "Intense, harsh light",
+      "similarWords": [
+        "ピカピカ",
+        "チカチカ"
+      ],
+      "soundPath": "sounds/nature/giragira.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/nature/sun.png",
+      "tags": [
+        "light",
+        "intense",
+        "bright"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "nature_010",
+      "japanese": "キラキラ",
+      "romaji": "kirakira",
+      "meaning": "Twinkling/sparkling",
+      "category": "Nature",
+      "subCategory": "Light/Weather",
+      "exampleSentence": "宝石がキラキラ光る。",
+      "exampleTranslation": "The jewel sparkles.",
+      "soundType": "gitaigo",
+      "usageContext": "Beautiful sparkling",
+      "similarWords": [
+        "ピカピカ",
+        "チカチカ"
+      ],
+      "soundPath": "sounds/nature/kirakira.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/nature/sparkle2.png",
+      "tags": [
+        "light",
+        "beautiful",
+        "sparkle"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_001",
+      "japanese": "ドキドキ",
+      "romaji": "dokidoki",
+      "meaning": "Heart pounding (excitement/nervousness)",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "胸がドキドキする。",
+      "exampleTranslation": "My heart is pounding.",
+      "soundType": "gitaigo",
+      "usageContext": "Excitement, nervousness, anticipation",
+      "similarWords": [
+        "ワクワク",
+        "ハラハラ"
+      ],
+      "soundPath": "sounds/human/dokidoki.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/heart.png",
+      "tags": [
+        "emotion",
+        "excitement",
+        "nervous"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_002",
+      "japanese": "ペラペラ",
+      "romaji": "perapera",
+      "meaning": "Fluent in language",
+      "category": "Human",
+      "subCategory": "Speech",
+      "exampleSentence": "彼は英語がペラペラだ。",
+      "exampleTranslation": "He speaks English fluently.",
+      "soundType": "gitaigo",
+      "usageContext": "Describing fluent language ability",
+      "similarWords": [
+        "スラスラ",
+        "べらべら"
+      ],
+      "soundPath": "sounds/human/perapera.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/speak.png",
+      "tags": [
+        "speech",
+        "language",
+        "fluent"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_003",
+      "japanese": "ゲラゲラ",
+      "romaji": "geragera",
+      "meaning": "Loud laughter",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "彼はゲラゲラ笑った。",
+      "exampleTranslation": "He laughed loudly.",
+      "soundType": "giongo",
+      "usageContext": "Belly laughing, hearty laughter",
+      "similarWords": [
+        "クスクス",
+        "ケラケラ"
+      ],
+      "soundPath": "sounds/human/geragera.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/human/laugh.png",
+      "tags": [
+        "emotion",
+        "laughter",
+        "happy"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_004",
+      "japanese": "シクシク",
+      "romaji": "shikushiku",
+      "meaning": "Sniffling/soft crying",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "子供がシクシク泣いている。",
+      "exampleTranslation": "The child is sniffling.",
+      "soundType": "giongo",
+      "usageContext": "Soft crying or sobbing",
+      "similarWords": [
+        "メソメソ",
+        "ウルウル"
+      ],
+      "soundPath": "sounds/human/shikushiku.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/cry.png",
+      "tags": [
+        "emotion",
+        "sad",
+        "tears"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_005",
+      "japanese": "ワクワク",
+      "romaji": "wakuwaku",
+      "meaning": "Excited/anticipating",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "旅行が楽しみでワクワクする。",
+      "exampleTranslation": "I'm excited about the trip.",
+      "soundType": "gitaigo",
+      "usageContext": "Feeling excited about something",
+      "similarWords": [
+        "ドキドキ",
+        "ウキウキ"
+      ],
+      "soundPath": "sounds/human/wakuwaku.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/excited.png",
+      "tags": [
+        "emotion",
+        "excited",
+        "happy"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_006",
+      "japanese": "イライラ",
+      "romaji": "iraira",
+      "meaning": "Irritated/annoyed",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "遅延でイライラする。",
+      "exampleTranslation": "I'm irritated by the delay.",
+      "soundType": "gitaigo",
+      "usageContext": "Feeling frustrated or annoyed",
+      "similarWords": [
+        "ムカムカ",
+        "カリカリ"
+      ],
+      "soundPath": "sounds/human/iraira.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/angry.png",
+      "tags": [
+        "emotion",
+        "angry",
+        "frustrated"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_007",
+      "japanese": "ハラハラ",
+      "romaji": "harahara",
+      "meaning": "Nervous/anxious",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "試合をハラハラしながら見る。",
+      "exampleTranslation": "I watch the game nervously.",
+      "soundType": "gitaigo",
+      "usageContext": "Worrying nervously about something",
+      "similarWords": [
+        "ドキドキ",
+        "ヒヤヒヤ"
+      ],
+      "soundPath": "sounds/human/harahara.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/nervous.png",
+      "tags": [
+        "emotion",
+        "nervous",
+        "worry"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_008",
+      "japanese": "ウキウキ",
+      "romaji": "ukiuki",
+      "meaning": "Cheerful/happy",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "週末なのでウキウキしている。",
+      "exampleTranslation": "I'm cheerful because it's the weekend.",
+      "soundType": "gitaigo",
+      "usageContext": "Feeling light and happy",
+      "similarWords": [
+        "ワクワク",
+        "ルンルン"
+      ],
+      "soundPath": "sounds/human/ukiuki.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/happy.png",
+      "tags": [
+        "emotion",
+        "happy",
+        "cheerful"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_009",
+      "japanese": "クスクス",
+      "romaji": "kusukusu",
+      "meaning": "Giggling/chuckling",
+      "category": "Human",
+      "subCategory": "Emotions",
+      "exampleSentence": "彼女はクスクス笑った。",
+      "exampleTranslation": "She giggled.",
+      "soundType": "giongo",
+      "usageContext": "Soft laughter or giggling",
+      "similarWords": [
+        "ゲラゲラ",
+        "ケラケラ"
+      ],
+      "soundPath": "sounds/human/kusukusu.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/human/giggle.png",
+      "tags": [
+        "emotion",
+        "laughter",
+        "soft"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_010",
+      "japanese": "ガンガン",
+      "romaji": "gangan",
+      "meaning": "Head throbbing/working hard",
+      "category": "Human",
+      "subCategory": "Body/Health",
+      "exampleSentence": "頭がガンガン痛い。",
+      "exampleTranslation": "I have a throbbing headache.",
+      "soundType": "giongo",
+      "usageContext": "Strong headache or working vigorously",
+      "similarWords": [
+        "ズキズキ",
+        "ゴリゴリ"
+      ],
+      "soundPath": "sounds/human/gangan.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/human/headache.png",
+      "tags": [
+        "body",
+        "pain",
+        "effort"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "human_011",
+      "japanese": "グッスリ",
+      "romaji": "gussuri",
+      "meaning": "Sound asleep",
+      "category": "Human",
+      "subCategory": "Body/Health",
+      "exampleSentence": "赤ちゃんがグッスリ眠っている。",
+      "exampleTranslation": "The baby is sleeping soundly.",
+      "soundType": "gitaigo",
+      "usageContext": "Deep, peaceful sleep",
+      "similarWords": [
+        "すやすや",
+        "ぐっすり"
+      ],
+      "soundPath": "sounds/human/gussuri.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/human/sleep.png",
+      "tags": [
+        "body",
+        "sleep",
+        "peaceful"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_001",
+      "japanese": "コロコロ",
+      "romaji": "korokoro",
+      "meaning": "Something rolling",
+      "category": "Object",
+      "subCategory": "Movement sounds",
+      "exampleSentence": "ボールがコロコロ転がる。",
+      "exampleTranslation": "The ball rolls around.",
+      "soundType": "giongo",
+      "usageContext": "Small objects rolling",
+      "similarWords": [
+        "ゴロゴロ",
+        "クルクル"
+      ],
+      "soundPath": "sounds/object/korokoro.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/ball.png",
+      "tags": [
+        "movement",
+        "round",
+        "smooth"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_002",
+      "japanese": "カチカチ",
+      "romaji": "kachikachi",
+      "meaning": "Clicking/ticking sound",
+      "category": "Object",
+      "subCategory": "Mechanical sounds",
+      "exampleSentence": "時計がカチカチと音を立てる。",
+      "exampleTranslation": "The clock ticks.",
+      "soundType": "giongo",
+      "usageContext": "Clock ticking or clicking sounds",
+      "similarWords": [
+        "チクタク",
+        "カチッ"
+      ],
+      "soundPath": "sounds/object/kachikachi.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/clock.png",
+      "tags": [
+        "mechanical",
+        "time",
+        "regular"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_003",
+      "japanese": "ガチャガチャ",
+      "romaji": "gachagacha",
+      "meaning": "Rattling/clattering sound",
+      "category": "Object",
+      "subCategory": "Mechanical sounds",
+      "exampleSentence": "ドアがガチャガチャと音を立てる。",
+      "exampleTranslation": "The door rattles.",
+      "soundType": "giongo",
+      "usageContext": "Rattling or clattering objects",
+      "similarWords": [
+        "ガタガタ",
+        "ガラガラ"
+      ],
+      "soundPath": "sounds/object/gachagacha.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/door.png",
+      "tags": [
+        "mechanical",
+        "loud",
+        "metal"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_004",
+      "japanese": "ピンポーン",
+      "romaji": "pinpōn",
+      "meaning": "Doorbell ringing",
+      "category": "Object",
+      "subCategory": "Electronic sounds",
+      "exampleSentence": "玄関のベルがピンポーンと鳴った。",
+      "exampleTranslation": "The doorbell rang.",
+      "soundType": "giongo",
+      "usageContext": "Doorbell or buzzer sound",
+      "similarWords": [
+        "ブザー",
+        "チーン"
+      ],
+      "soundPath": "sounds/object/pinpon.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/object/doorbell.png",
+      "tags": [
+        "electronic",
+        "home",
+        "notification"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_005",
+      "japanese": "ブーン",
+      "romaji": "būn",
+      "meaning": "Buzzing/humming sound",
+      "category": "Object",
+      "subCategory": "Electronic sounds",
+      "exampleSentence": "エアコンがブーンと音を立てる。",
+      "exampleTranslation": "The air conditioner hums.",
+      "soundType": "giongo",
+      "usageContext": "Electrical appliances or insects",
+      "similarWords": [
+        "ブンブン",
+        "ゴー"
+      ],
+      "soundPath": "sounds/object/buun.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/buzzing.png",
+      "tags": [
+        "electronic",
+        "continuous",
+        "machine"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_006",
+      "japanese": "ガタガタ",
+      "romaji": "gatagata",
+      "meaning": "Rattling/shaking sound",
+      "category": "Object",
+      "subCategory": "Mechanical sounds",
+      "exampleSentence": "電車がガタガタと揺れる。",
+      "exampleTranslation": "The train rattles and shakes.",
+      "soundType": "giongo",
+      "usageContext": "Objects shaking or rattling",
+      "similarWords": [
+        "ガチャガチャ",
+        "ゴトゴト"
+      ],
+      "soundPath": "sounds/object/gatagata.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/train.png",
+      "tags": [
+        "mechanical",
+        "movement",
+        "transport"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_007",
+      "japanese": "ゴトゴト",
+      "romaji": "gotogoto",
+      "meaning": "Rumbling sound",
+      "category": "Object",
+      "subCategory": "Movement sounds",
+      "exampleSentence": "トラックがゴトゴトと走る。",
+      "exampleTranslation": "The truck rumbles along.",
+      "soundType": "giongo",
+      "usageContext": "Heavy vehicles moving",
+      "similarWords": [
+        "ゴロゴロ",
+        "ドンドン"
+      ],
+      "soundPath": "sounds/object/gotogoto.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/truck.png",
+      "tags": [
+        "vehicle",
+        "heavy",
+        "road"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_008",
+      "japanese": "パチパチ",
+      "romaji": "pachipachi",
+      "meaning": "Crackling/sparking sound",
+      "category": "Object",
+      "subCategory": "Fire/Electric sounds",
+      "exampleSentence": "火がパチパチと燃える。",
+      "exampleTranslation": "The fire crackles.",
+      "soundType": "giongo",
+      "usageContext": "Fire or electrical sparks",
+      "similarWords": [
+        "バチバチ",
+        "パチッ"
+      ],
+      "soundPath": "sounds/object/pachipachi.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/object/fire.png",
+      "tags": [
+        "fire",
+        "electric",
+        "spark"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_009",
+      "japanese": "チリチリ",
+      "romaji": "chirichiri",
+      "meaning": "Frying/sizzling sound",
+      "category": "Object",
+      "subCategory": "Cooking sounds",
+      "exampleSentence": "肉がチリチリと焼ける。",
+      "exampleTranslation": "The meat sizzles as it cooks.",
+      "soundType": "giongo",
+      "usageContext": "Small things frying",
+      "similarWords": [
+        "ジュージュー",
+        "パチパチ"
+      ],
+      "soundPath": "sounds/object/chirichiri.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/object/frying.png",
+      "tags": [
+        "cooking",
+        "food",
+        "heat"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "object_010",
+      "japanese": "コンコン",
+      "romaji": "konkon",
+      "meaning": "Knocking sound",
+      "category": "Object",
+      "subCategory": "Impact sounds",
+      "exampleSentence": "ドアをコンコンとノックする。",
+      "exampleTranslation": "Knock on the door.",
+      "soundType": "giongo",
+      "usageContext": "Gentle knocking",
+      "similarWords": [
+        "トントン",
+        "コツコツ"
+      ],
+      "soundPath": "sounds/object/konkon.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/object/knock.png",
+      "tags": [
+        "door",
+        "gentle",
+        "wood"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_001",
+      "japanese": "モグモグ",
+      "romaji": "mogumogu",
+      "meaning": "Munching/eating sound",
+      "category": "Food",
+      "subCategory": "Eating sounds",
+      "exampleSentence": "うさぎが人参をモグモグ食べる。",
+      "exampleTranslation": "The rabbit munches on a carrot.",
+      "soundType": "giongo",
+      "usageContext": "Sound of chewing or munching",
+      "similarWords": [
+        "ムシャムシャ",
+        "パクパク"
+      ],
+      "soundPath": "sounds/food/mogumogu.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/food/carrot.png",
+      "tags": [
+        "eating",
+        "chewing",
+        "animal"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_002",
+      "japanese": "パクパク",
+      "romaji": "pakupaku",
+      "meaning": "Eating with big bites",
+      "category": "Food",
+      "subCategory": "Eating sounds",
+      "exampleSentence": "魚がパクパクと餌を食べる。",
+      "exampleTranslation": "The fish eats food with big bites.",
+      "soundType": "giongo",
+      "usageContext": "Eating with mouth opening and closing",
+      "similarWords": [
+        "ムシャムシャ",
+        "モグモグ"
+      ],
+      "soundPath": "sounds/food/pakupaku.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/food/fish.png",
+      "tags": [
+        "eating",
+        "fish",
+        "water"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_003",
+      "japanese": "ゴクゴク",
+      "romaji": "gokugoku",
+      "meaning": "Gulping sound",
+      "category": "Food",
+      "subCategory": "Drinking sounds",
+      "exampleSentence": "水をゴクゴク飲む。",
+      "exampleTranslation": "Gulp down water.",
+      "soundType": "giongo",
+      "usageContext": "Sound of gulping liquid",
+      "similarWords": [
+        "グビグビ",
+        "ゴボゴボ"
+      ],
+      "soundPath": "sounds/food/gokugoku.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/food/water.png",
+      "tags": [
+        "drinking",
+        "liquid",
+        "thirsty"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_004",
+      "japanese": "シャキシャキ",
+      "romaji": "shakishaki",
+      "meaning": "Crispy/crunchy texture",
+      "category": "Food",
+      "subCategory": "Food texture",
+      "exampleSentence": "レタスがシャキシャキしている。",
+      "exampleTranslation": "The lettuce is crispy.",
+      "soundType": "gitaigo",
+      "usageContext": "Describing crispy vegetables",
+      "similarWords": [
+        "パリパリ",
+        "サクサク"
+      ],
+      "soundPath": "sounds/food/shakishaki.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/food/lettuce.png",
+      "tags": [
+        "texture",
+        "crispy",
+        "vegetable"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_005",
+      "japanese": "トロトロ",
+      "romaji": "torotoro",
+      "meaning": "Creamy/melting texture",
+      "category": "Food",
+      "subCategory": "Food texture",
+      "exampleSentence": "卵がトロトロに仕上がった。",
+      "exampleTranslation": "The eggs turned out creamy.",
+      "soundType": "gitaigo",
+      "usageContext": "Creamy, melting, or soft texture",
+      "similarWords": [
+        "とろり",
+        "ねっとり"
+      ],
+      "soundPath": "sounds/food/torotoro.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/food/egg.png",
+      "tags": [
+        "texture",
+        "creamy",
+        "soft"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_006",
+      "japanese": "ジュージュー",
+      "romaji": "jūjū",
+      "meaning": "Sizzling sound",
+      "category": "Food",
+      "subCategory": "Cooking sounds",
+      "exampleSentence": "肉がジュージュー焼けている。",
+      "exampleTranslation": "The meat is sizzling.",
+      "soundType": "giongo",
+      "usageContext": "Sound of food cooking on a grill",
+      "similarWords": [
+        "パチパチ",
+        "バチバチ"
+      ],
+      "soundPath": "sounds/food/juju.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/food/meat.png",
+      "tags": [
+        "cooking",
+        "grill",
+        "heat"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_007",
+      "japanese": "グツグツ",
+      "romaji": "gutsugutsu",
+      "meaning": "Boiling/bubbling sound",
+      "category": "Food",
+      "subCategory": "Cooking sounds",
+      "exampleSentence": "お湯がグツグツ沸いている。",
+      "exampleTranslation": "The water is boiling.",
+      "soundType": "giongo",
+      "usageContext": "Boiling liquid sound",
+      "similarWords": [
+        "ボコボコ",
+        "ブクブク"
+      ],
+      "soundPath": "sounds/food/gutsugutsu.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/food/boiling.png",
+      "tags": [
+        "cooking",
+        "liquid",
+        "heat"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_008",
+      "japanese": "ムシャムシャ",
+      "romaji": "mushamusha",
+      "meaning": "Eating quickly/messily",
+      "category": "Food",
+      "subCategory": "Eating sounds",
+      "exampleSentence": "子供がお菓子をムシャムシャ食べる。",
+      "exampleTranslation": "The child eats the snack messily.",
+      "soundType": "giongo",
+      "usageContext": "Eating quickly or messily",
+      "similarWords": [
+        "モグモグ",
+        "パクパク"
+      ],
+      "soundPath": "sounds/food/mushamusha.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/food/snack.png",
+      "tags": [
+        "eating",
+        "quick",
+        "messy"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_009",
+      "japanese": "パリパリ",
+      "romaji": "paripari",
+      "meaning": "Crispy/crunchy sound",
+      "category": "Food",
+      "subCategory": "Food texture",
+      "exampleSentence": "せんべいがパリパリだ。",
+      "exampleTranslation": "The rice cracker is crispy.",
+      "soundType": "giongo",
+      "usageContext": "Crispy food texture",
+      "similarWords": [
+        "サクサク",
+        "シャキシャキ"
+      ],
+      "soundPath": "sounds/food/paripari.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/food/cracker.png",
+      "tags": [
+        "texture",
+        "crispy",
+        "dry"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "food_010",
+      "japanese": "ネバネバ",
+      "romaji": "nebaneba",
+      "meaning": "Sticky/slimy texture",
+      "category": "Food",
+      "subCategory": "Food texture",
+      "exampleSentence": "納豆がネバネバしている。",
+      "exampleTranslation": "The natto is sticky.",
+      "soundType": "gitaigo",
+      "usageContext": "Sticky or slimy food",
+      "similarWords": [
+        "ヌルヌル",
+        "トロトロ"
+      ],
+      "soundPath": "sounds/food/nebaneba.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/food/natto.png",
+      "tags": [
+        "texture",
+        "sticky",
+        "Japanese"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "vehicle_001",
+      "japanese": "ブンブン",
+      "romaji": "bunbun",
+      "meaning": "Engine revving",
+      "category": "Vehicle",
+      "subCategory": "Engine sounds",
+      "exampleSentence": "バイクがブンブンと音を立てる。",
+      "exampleTranslation": "The motorcycle engine revs.",
+      "soundType": "giongo",
+      "usageContext": "Motorcycle or small engine",
+      "similarWords": [
+        "ブルブル",
+        "ゴーゴー"
+      ],
+      "soundPath": "sounds/vehicle/bunbun.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/vehicle/motorcycle.png",
+      "tags": [
+        "engine",
+        "motor",
+        "transport"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "vehicle_002",
+      "japanese": "ガーガー",
+      "romaji": "gāgā",
+      "meaning": "Loud engine sound",
+      "category": "Vehicle",
+      "subCategory": "Engine sounds",
+      "exampleSentence": "飛行機がガーガーと飛ぶ。",
+      "exampleTranslation": "The airplane flies loudly.",
+      "soundType": "giongo",
+      "usageContext": "Airplane or loud vehicle",
+      "similarWords": [
+        "ゴーゴー",
+        "ブオーン"
+      ],
+      "soundPath": "sounds/vehicle/gaagaa.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/vehicle/airplane.png",
+      "tags": [
+        "airplane",
+        "loud",
+        "transport"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "vehicle_003",
+      "japanese": "ガタンゴトン",
+      "romaji": "gatangoton",
+      "meaning": "Train running sound",
+      "category": "Vehicle",
+      "subCategory": "Train sounds",
+      "exampleSentence": "電車がガタンゴトンと走る。",
+      "exampleTranslation": "The train runs with a clacking sound.",
+      "soundType": "giongo",
+      "usageContext": "Train moving on tracks",
+      "similarWords": [
+        "ガタガタ",
+        "ゴトゴト"
+      ],
+      "soundPath": "sounds/vehicle/gatangoton.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/vehicle/train.png",
+      "tags": [
+        "train",
+        "transport",
+        "regular"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "vehicle_004",
+      "japanese": "プップー",
+      "romaji": "puppū",
+      "meaning": "Car horn sound",
+      "category": "Vehicle",
+      "subCategory": "Car sounds",
+      "exampleSentence": "車がプップーとクラクションを鳴らす。",
+      "exampleTranslation": "The car honks its horn.",
+      "soundType": "giongo",
+      "usageContext": "Car horn or whistle",
+      "similarWords": [
+        "ブーブー",
+        "ピーピー"
+      ],
+      "soundPath": "sounds/vehicle/puppu.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/vehicle/car_horn.png",
+      "tags": [
+        "car",
+        "warning",
+        "loud"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "music_001",
+      "japanese": "ジャーン",
+      "romaji": "jān",
+      "meaning": "Fanfare/dramatic sound",
+      "category": "Music",
+      "subCategory": "Instrument sounds",
+      "exampleSentence": "トランペットがジャーンと鳴る。",
+      "exampleTranslation": "The trumpet sounds a fanfare.",
+      "soundType": "giongo",
+      "usageContext": "Trumpet or dramatic musical sound",
+      "similarWords": [
+        "パンパン",
+        "タンタン"
+      ],
+      "soundPath": "sounds/music/jaan.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/music/trumpet.png",
+      "tags": [
+        "music",
+        "instrument",
+        "dramatic"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "music_002",
+      "japanese": "ポロポロ",
+      "romaji": "poroporo",
+      "meaning": "Gentle piano sound",
+      "category": "Music",
+      "subCategory": "Instrument sounds",
+      "exampleSentence": "ピアノがポロポロと弾かれる。",
+      "exampleTranslation": "The piano is played gently.",
+      "soundType": "giongo",
+      "usageContext": "Gentle piano melody",
+      "similarWords": [
+        "トントン",
+        "ピアノ"
+      ],
+      "soundPath": "sounds/music/poroporo.mp3",
+      "difficulty": 3,
+      "imagePath": "images/onomatopoeia/music/piano.png",
+      "tags": [
+        "music",
+        "instrument",
+        "gentle"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "music_003",
+      "japanese": "リンリン",
+      "romaji": "rinrin",
+      "meaning": "Bell ringing",
+      "category": "Music",
+      "subCategory": "Instrument sounds",
+      "exampleSentence": "鈴がリンリンと鳴る。",
+      "exampleTranslation": "The bell rings.",
+      "soundType": "giongo",
+      "usageContext": "Small bell sound",
+      "similarWords": [
+        "チリンチリン",
+        "シャンシャン"
+      ],
+      "soundPath": "sounds/music/rinrin.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/music/bell.png",
+      "tags": [
+        "music",
+        "bell",
+        "clear"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "technology_001",
+      "japanese": "ピッ",
+      "romaji": "pitsu",
+      "meaning": "Beep sound",
+      "category": "Technology",
+      "subCategory": "Electronic sounds",
+      "exampleSentence": "電子レンジがピッと鳴った。",
+      "exampleTranslation": "The microwave beeped.",
+      "soundType": "giongo",
+      "usageContext": "Short electronic beep",
+      "similarWords": [
+        "ピポッ",
+        "ビー"
+      ],
+      "soundPath": "sounds/technology/pitsu.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/technology/microwave.png",
+      "tags": [
+        "electronic",
+        "appliance",
+        "notification"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "technology_002",
+      "japanese": "ジリジリ",
+      "romaji": "jirijiri",
+      "meaning": "Static sound",
+      "category": "Technology",
+      "subCategory": "Electronic sounds",
+      "exampleSentence": "ラジオがジリジリと音を立てる。",
+      "exampleTranslation": "The radio makes static noise.",
+      "soundType": "giongo",
+      "usageContext": "Radio static or interference",
+      "similarWords": [
+        "ザーザー",
+        "シー"
+      ],
+      "soundPath": "sounds/technology/jirijiri.mp3",
+      "difficulty": 2,
+      "imagePath": "images/onomatopoeia/technology/radio.png",
+      "tags": [
+        "electronic",
+        "static",
+        "old"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    },
+    {
+      "id": "technology_003",
+      "japanese": "カチッ",
+      "romaji": "kachittsu",
+      "meaning": "Click sound",
+      "category": "Technology",
+      "subCategory": "Electronic sounds",
+      "exampleSentence": "ボタンをカチッと押す。",
+      "exampleTranslation": "Click the button.",
+      "soundType": "giongo",
+      "usageContext": "Clicking a button or switch",
+      "similarWords": [
+        "カチカチ",
+        "ポチッ"
+      ],
+      "soundPath": "sounds/technology/kachittsu.mp3",
+      "difficulty": 1,
+      "imagePath": "images/onomatopoeia/technology/button.png",
+      "tags": [
+        "electronic",
+        "click",
+        "button"
+      ],
+      "isFavorite": false,
+      "viewCount": 0,
+      "addedDate": "2026-01-01",
+      "masteryLevel": 0,
+      "quizAttempts": 0,
+      "correctAnswers": 0,
+      "relatedMedia": []
+    }
+  ],
+  "metadata": {
+    "categories": {
+      "Animal": {
+        "icon": "pets",
+        "color": "#FF9800",
+        "description": "Sounds made by various animals including pets, wildlife, and insects",
+        "subCategories": [
+          "Dog sounds",
+          "Cat sounds",
+          "Bird sounds",
+          "Farm animals",
+          "Wild animals",
+          "Insect sounds",
+          "Marine animals"
+        ]
+      },
+      "Nature": {
+        "icon": "park",
+        "color": "#4CAF50",
+        "description": "Natural environmental sounds from weather, water, plants, and earth",
+        "subCategories": [
+          "Weather sounds",
+          "Water sounds",
+          "Earth sounds",
+          "Plant sounds",
+          "Sky sounds",
+          "Seasonal sounds"
+        ]
+      },
+      "Human": {
+        "icon": "person",
+        "color": "#2196F3",
+        "description": "Sounds related to human emotions, speech, movement, and body functions",
+        "subCategories": [
+          "Emotions",
+          "Speech sounds",
+          "Body sounds",
+          "Movement sounds",
+          "Health sounds"
+        ]
+      },
+      "Object": {
+        "icon": "category",
+        "color": "#9C27B0",
+        "description": "Sounds produced by man-made objects and mechanical devices",
+        "subCategories": [
+          "Mechanical sounds",
+          "Electronic sounds",
+          "Movement sounds",
+          "Impact sounds",
+          "Household sounds"
+        ]
+      },
+      "Food": {
+        "icon": "restaurant",
+        "color": "#FF5722",
+        "description": "Sounds related to eating, drinking, cooking, and food textures",
+        "subCategories": [
+          "Eating sounds",
+          "Drinking sounds",
+          "Cooking sounds",
+          "Food texture",
+          "Kitchen sounds"
+        ]
+      },
+      "Vehicle": {
+        "icon": "directions_car",
+        "color": "#607D8B",
+        "description": "Transportation and vehicle-related sounds",
+        "subCategories": [
+          "Car sounds",
+          "Motorcycle sounds",
+          "Train sounds",
+          "Airplane sounds",
+          "Ship sounds"
+        ]
+      },
+      "Music": {
+        "icon": "music_note",
+        "color": "#E91E63",
+        "description": "Musical instrument sounds and performance-related onomatopoeia",
+        "subCategories": [
+          "Instrument sounds",
+          "Vocal sounds",
+          "Dance sounds",
+          "Concert sounds",
+          "Traditional sounds"
+        ]
+      },
+      "Technology": {
+        "icon": "computer",
+        "color": "#00BCD4",
+        "description": "Modern technology and electronic device sounds",
+        "subCategories": [
+          "Computer sounds",
+          "Phone sounds",
+          "Appliance sounds",
+          "Game sounds",
+          "Robot sounds"
+        ]
+      }
+    },
+    "difficultyLevels": [
+      {
+        "level": 1,
+        "name": "Beginner",
+        "color": "#4CAF50"
+      },
+      {
+        "level": 2,
+        "name": "Elementary",
+        "color": "#8BC34A"
+      },
+      {
+        "level": 3,
+        "name": "Intermediate",
+        "color": "#FFC107"
+      },
+      {
+        "level": 4,
+        "name": "Advanced",
+        "color": "#FF9800"
+      },
+      {
+        "level": 5,
+        "name": "Expert",
+        "color": "#F44336"
+      }
+    ],
+    "soundTypes": [
+      {
+        "type": "giongo",
+        "name": "Giongo",
+        "description": "Actual sound effects",
+        "color": "#2196F3"
+      },
+      {
+        "type": "gitaigo",
+        "name": "Gitaigo",
+        "description": "Descriptive states/conditions",
+        "color": "#9C27B0"
+      }
+    ]
+  }
+}

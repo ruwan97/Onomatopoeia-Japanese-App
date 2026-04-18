@@ -16,7 +16,8 @@ class LibraryPage extends StatefulWidget {
   State<LibraryPage> createState() => _LibraryPageState();
 }
 
-class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStateMixin {
+class _LibraryPageState extends State<LibraryPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<String> _tabs = ['Favorites', 'History', 'Practice', 'Mastered'];
 
@@ -45,46 +46,47 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
       body: onomatopoeiaProvider.isLoading
           ? const LoadingIndicator()
           : Column(
-        children: [
-          // User Stats Card
-          _buildUserStatsCard(userProvider),
-
-          // Tab Bar
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              border: Border(
-                bottom: BorderSide(
-                  color: Theme.of(context).dividerColor,
-                  width: 1,
-                ),
-              ),
-            ),
-            child: TabBar(
-              controller: _tabController,
-              tabs: _tabs.map((tab) => Tab(text: tab)).toList(),
-              labelColor: AppColors.doraemonBlue,
-              unselectedLabelColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
-              indicatorColor: AppColors.doraemonBlue,
-              indicatorSize: TabBarIndicatorSize.label,
-              isScrollable: true,
-            ),
-          ),
-
-          // Tab Views
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
               children: [
-                _buildFavoritesTab(onomatopoeiaProvider),
-                _buildHistoryTab(onomatopoeiaProvider),
-                _buildPracticeTab(onomatopoeiaProvider),
-                _buildMasteredTab(onomatopoeiaProvider),
+                // User Stats Card
+                _buildUserStatsCard(userProvider),
+
+                // Tab Bar
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Theme.of(context).dividerColor,
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    tabs: _tabs.map((tab) => Tab(text: tab)).toList(),
+                    labelColor: AppColors.doraemonBlue,
+                    unselectedLabelColor:
+                        Theme.of(context).colorScheme.onSurface.withAlpha(153),
+                    indicatorColor: AppColors.doraemonBlue,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    isScrollable: true,
+                  ),
+                ),
+
+                // Tab Views
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildFavoritesTab(onomatopoeiaProvider),
+                      _buildHistoryTab(onomatopoeiaProvider),
+                      _buildPracticeTab(onomatopoeiaProvider),
+                      _buildMasteredTab(onomatopoeiaProvider),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -97,14 +99,14 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.doraemonLightBlue, // Light blue
-            AppColors.doraemonBlue, // Doraemon blue
+            AppColors.doraemonLightBlue,
+            AppColors.doraemonBlue,
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3), // FIXED
+            color: Theme.of(context).colorScheme.primary.withAlpha(77),
             blurRadius: 20,
             spreadRadius: 2,
             offset: const Offset(0, 4),
@@ -121,7 +123,8 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
                 children: [
                   Text(
                     'Learning Progress',
-                    style: AppTextStyles.bodyMedium.copyWith(color: Colors.white),
+                    style:
+                        AppTextStyles.bodyMedium.copyWith(color: Colors.white),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -151,18 +154,19 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
           Container(
             height: 8,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2), // FIXED
+              color: Colors.white.withAlpha(51),
               borderRadius: BorderRadius.circular(4),
             ),
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return Container(
-                  width: constraints.maxWidth * (userProvider.totalMastery / 100),
+                  width:
+                      constraints.maxWidth * (userProvider.totalMastery / 100),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
                         Colors.white,
-                        Colors.white.withValues(alpha: 0.8), // FIXED
+                        Colors.white.withAlpha(204),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(4),
@@ -175,9 +179,12 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildStatItem('Words', '${userProvider.learnedWords}', Icons.book),
-              _buildStatItem('Favorites', '${userProvider.favoriteCount}', Icons.favorite),
-              _buildStatItem('Days', '${userProvider.streakDays}', Icons.local_fire_department),
+              _buildStatItem(
+                  'Words', '${userProvider.learnedWords}', Icons.book),
+              _buildStatItem(
+                  'Favorites', '${userProvider.favoriteCount}', Icons.favorite),
+              _buildStatItem('Days', '${userProvider.streakDays}',
+                  Icons.local_fire_department),
             ],
           ),
         ],
@@ -199,7 +206,8 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
         ),
         Text(
           label,
-          style: AppTextStyles.caption.copyWith(color: Colors.white.withValues(alpha: 0.8)), // FIXED
+          style: AppTextStyles.caption
+              .copyWith(color: Colors.white.withAlpha(204)),
         ),
       ],
     );
@@ -216,20 +224,20 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
             Icon(
               Icons.favorite_border,
               size: 80,
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3), // FIXED
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
             ),
             const SizedBox(height: 16),
             Text(
               'No favorites yet',
               style: AppTextStyles.headlineSmall.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
               ),
             ),
             const SizedBox(height: 8),
             Text(
               'Tap the heart icon to add favorites',
               style: AppTextStyles.bodyMedium.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4), // FIXED
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(102),
               ),
             ),
           ],
@@ -288,9 +296,9 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
 
   Widget _buildMasteredTab(OnomatopoeiaProvider provider) {
     final mastered = provider.onomatopoeiaList
-        .where((item) => item.mastery >= 0.8)
+        .where((item) => item.masteryPercentage >= 80)
         .toList()
-      ..sort((a, b) => b.mastery.compareTo(a.mastery));
+      ..sort((a, b) => b.masteryPercentage.compareTo(a.masteryPercentage));
 
     if (mastered.isEmpty) {
       return _buildEmptyState('No mastered words yet', Icons.emoji_events);
@@ -314,9 +322,10 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
 
   Widget _buildLibraryItem(Onomatopoeia item, OnomatopoeiaProvider provider) {
     return Card(
+      margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1), // FIXED
+          backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(26),
           child: Text(
             item.japanese[0],
             style: AppTextStyles.japaneseMedium.copyWith(
@@ -345,19 +354,25 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
             // Practice Count
             Chip(
               label: Text('${item.practiceCount}×'),
-              backgroundColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1), // FIXED
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(26),
             ),
             const SizedBox(width: 8),
             // Mastery
-            CircularProgressIndicator(
-              value: item.mastery,
-              strokeWidth: 3,
-              color: AppColors.doraemonBlue,
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: CircularProgressIndicator(
+                value: item.masteryPercentage / 100,
+                strokeWidth: 3,
+                color: AppColors.doraemonBlue,
+              ),
             ),
           ],
         ),
         onTap: () {
-          // Navigate to details
+          // Navigate to details page
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => OnomatopoeiaDetailsPage(onomatopoeia: item)));
         },
       ),
     );
@@ -376,8 +391,8 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Theme.of(context).colorScheme.primary.withValues(alpha: 0.1), // FIXED
-              Theme.of(context).colorScheme.primary.withValues(alpha: 0.3), // FIXED
+              Theme.of(context).colorScheme.primary.withAlpha(26),
+              Theme.of(context).colorScheme.primary.withAlpha(77),
             ],
           ),
         ),
@@ -416,7 +431,7 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
               const SizedBox(height: 16),
               // Mastery Level
               Text(
-                '${(item.mastery * 100).round()}% Mastered',
+                '${item.masteryPercentage.round()}% Mastered',
                 style: AppTextStyles.bodySmall.copyWith(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
@@ -437,13 +452,13 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
           Icon(
             icon,
             size: 80,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3), // FIXED
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
           ),
           const SizedBox(height: 16),
           Text(
             message,
             style: AppTextStyles.headlineSmall.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), // FIXED
+              color: Theme.of(context).colorScheme.onSurface.withAlpha(153),
             ),
           ),
         ],

@@ -17,11 +17,17 @@ class OnomatopoeiaProvider extends ChangeNotifier {
   String _currentSortType = 'default';
 
   List<Onomatopoeia> get onomatopoeiaList => _onomatopoeiaList;
+
   List<Onomatopoeia> get filteredList => _filteredList;
+
   String get selectedCategory => _selectedCategory;
+
   bool get isLoading => _isLoading;
+
   List<int> get selectedDifficulties => _selectedDifficulties;
+
   List<String> get selectedSoundTypes => _selectedSoundTypes;
+
   String get currentSortType => _currentSortType;
 
   OnomatopoeiaProvider() {
@@ -34,7 +40,7 @@ class OnomatopoeiaProvider extends ChangeNotifier {
 
     await Future.delayed(const Duration(milliseconds: 500));
 
-    _onomatopoeiaList = _repository.getOnomatopoeiaList();
+    _onomatopoeiaList = await _repository.getOnomatopoeiaList();
     _filteredList = _onomatopoeiaList;
 
     _isLoading = false;
@@ -69,26 +75,33 @@ class OnomatopoeiaProvider extends ChangeNotifier {
 
     // Apply category filter
     if (_selectedCategory != 'All') {
-      filtered = filtered.where((item) => item.category == _selectedCategory).toList();
+      filtered =
+          filtered.where((item) => item.category == _selectedCategory).toList();
     }
 
     // Apply difficulty filter
     if (_selectedDifficulties.isNotEmpty) {
-      filtered = filtered.where((item) => _selectedDifficulties.contains(item.difficulty)).toList();
+      filtered = filtered
+          .where((item) => _selectedDifficulties.contains(item.difficulty))
+          .toList();
     }
 
     // Apply sound type filter
     if (_selectedSoundTypes.isNotEmpty) {
-      filtered = filtered.where((item) => _selectedSoundTypes.contains(item.soundType)).toList();
+      filtered = filtered
+          .where((item) => _selectedSoundTypes.contains(item.soundType))
+          .toList();
     }
 
     // Apply search filter
     if (_searchQuery.isNotEmpty) {
-      filtered = filtered.where((item) =>
-      item.japanese.toLowerCase().contains(_searchQuery) ||
-          item.romaji.toLowerCase().contains(_searchQuery) ||
-          item.meaning.toLowerCase().contains(_searchQuery) ||
-          item.exampleSentence.toLowerCase().contains(_searchQuery)).toList();
+      filtered = filtered
+          .where((item) =>
+              item.japanese.toLowerCase().contains(_searchQuery) ||
+              item.romaji.toLowerCase().contains(_searchQuery) ||
+              item.meaning.toLowerCase().contains(_searchQuery) ||
+              item.exampleSentence.toLowerCase().contains(_searchQuery))
+          .toList();
     }
 
     // Apply sorting
@@ -119,7 +132,7 @@ class OnomatopoeiaProvider extends ChangeNotifier {
         break;
       case 'default':
       default:
-      // Keep original order
+        // Keep original order
         break;
     }
 
@@ -151,8 +164,8 @@ class OnomatopoeiaProvider extends ChangeNotifier {
     return _onomatopoeiaList.where((item) => item.isFavorite).toList();
   }
 
-  List<String> getCategories() {
-    return _repository.getCategories();
+  Future<List<String>> getCategories() async {
+    return await _repository.getCategories();
   }
 
   void sortOnomatopoeia(String sortType) {
@@ -173,5 +186,56 @@ class OnomatopoeiaProvider extends ChangeNotifier {
 
   List<Onomatopoeia> get favoriteList {
     return onomatopoeiaList.where((item) => item.isFavorite).toList();
+  }
+
+  // In your OnomatopoeiaProvider class
+  void incrementPracticeCount(String id) {
+    final index = _onomatopoeiaList.indexWhere((item) => item.id == id);
+    if (index != -1) {
+      _onomatopoeiaList[index] = _onomatopoeiaList[index].copyWith(
+        practiceCount: _onomatopoeiaList[index].practiceCount + 1,
+      );
+      _applyFilters();
+    }
+  }
+
+  void updateMastery(String id, bool isCorrect) {
+    final index = _onomatopoeiaList.indexWhere((item) => item.id == id);
+    if (index != -1) {
+      final item = _onomatopoeiaList[index];
+      final newQuizAttempts = item.quizAttempts + 1;
+      final newCorrectAnswers = item.correctAnswers + (isCorrect ? 1 : 0);
+      final newMasteryLevel =
+          _calculateMasteryLevel(newCorrectAnswers, newQuizAttempts);
+
+      _onomatopoeiaList[index] = item.copyWith(
+        quizAttempts: newQuizAttempts,
+        correctAnswers: newCorrectAnswers,
+        masteryLevel: newMasteryLevel,
+      );
+      _applyFilters();
+    }
+  }
+
+  int _calculateMasteryLevel(int correctAnswers, int totalAttempts) {
+    if (totalAttempts == 0) return 0;
+    final percentage = correctAnswers / totalAttempts;
+    if (percentage >= 0.9) return 5;
+    if (percentage >= 0.7) return 4;
+    if (percentage >= 0.5) return 3;
+    if (percentage >= 0.3) return 2;
+    return 1;
+  }
+
+  List<Onomatopoeia> getPracticeHistory() {
+    return _onomatopoeiaList.where((item) => item.practiceCount > 0).toList()
+      ..sort((a, b) => b.practiceCount.compareTo(a.practiceCount));
+  }
+
+  List<Onomatopoeia> getMasteredWords() {
+    return _onomatopoeiaList
+        .where((item) => item.masteryPercentage >= 80)
+        .toList()
+      ..sort((a, b) => b.masteryPercentage.compareTo(a.masteryPercentage));
   }
 }

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:onomatopoeia_app/core/themes/theme_provider.dart';
 import 'package:onomatopoeia_app/data/models/onomatopoeia_model.dart';
 import 'package:onomatopoeia_app/data/models/user_model.dart';
+import 'package:onomatopoeia_app/data/models/achievement_model.dart';
 import 'package:onomatopoeia_app/app.dart';
 
 void main() async {
@@ -12,7 +13,7 @@ void main() async {
   // Initialize Hive
   await Hive.initFlutter();
 
-  // Register adapters
+  // Register adapters (these will be generated)
   Hive.registerAdapter(OnomatopoeiaAdapter());
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(AchievementAdapter());
@@ -22,7 +23,7 @@ void main() async {
   await Hive.openBox<Onomatopoeia>('onomatopoeia_box');
   await Hive.openBox<User>('user_box');
   await Hive.openBox('settings_box');
-  await Hive.openBox('achievements_box');
+  await Hive.openBox<Achievement>('achievements_box');
 
   runApp(const MyApp());
 }

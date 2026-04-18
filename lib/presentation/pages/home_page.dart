@@ -21,11 +21,14 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   String _currentSort = 'default';
   int _selectedCategoryIndex = 0;
+  List<String> _categories = ['All']; // Add this to store categories
+  bool _categoriesLoaded = false; // Track if categories are loaded
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    _loadCategories(); // Load categories on init
   }
 
   @override
@@ -37,6 +40,16 @@ class _HomePageState extends State<HomePage> {
 
   void _onScroll() {
     setState(() {});
+  }
+
+  // Load categories asynchronously
+  Future<void> _loadCategories() async {
+    final provider = Provider.of<OnomatopoeiaProvider>(context, listen: false);
+    final categories = await provider.getCategories(); // Await the Future
+    setState(() {
+      _categories = categories;
+      _categoriesLoaded = true;
+    });
   }
 
   void _showSortOptions(BuildContext context, OnomatopoeiaProvider provider) {
@@ -157,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                     physics: const ClampingScrollPhysics(),
                     itemCount: sortOptions.length,
                     separatorBuilder: (context, index) =>
-                    const SizedBox(height: 6),
+                        const SizedBox(height: 6),
                     itemBuilder: (context, index) {
                       final option = sortOptions[index];
                       final isSelected = _currentSort == option['value'];
@@ -255,19 +268,19 @@ class _HomePageState extends State<HomePage> {
           ),
           boxShadow: isSelected
               ? [
-            BoxShadow(
-              color: color.withAlpha(40),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ]
+                  BoxShadow(
+                    color: color.withAlpha(40),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
               : [
-            BoxShadow(
-              color: Colors.black.withAlpha(10),
-              blurRadius: 4,
-              offset: const Offset(0, 1),
-            ),
-          ],
+                  BoxShadow(
+                    color: Colors.black.withAlpha(10),
+                    blurRadius: 4,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         margin: const EdgeInsets.symmetric(vertical: 4),
@@ -360,155 +373,162 @@ class _HomePageState extends State<HomePage> {
         child: provider.isLoading
             ? const LoadingIndicator()
             : NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                expandedHeight: 160, // Reduced height
-                floating: false,
-                pinned: true,
-                snap: false,
-                stretch: true,
-                flexibleSpace: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return FlexibleSpaceBar(
-                      stretchModes: const [StretchMode.zoomBackground],
-                      background: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              AppColors.doraemonLightBlue, // Light blue
-                              AppColors.doraemonBlue, // Doraemon blue
-                            ],
-                          ),
-                        ),
-                        child: SafeArea(
-                          bottom: false,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 16,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Greeting Section
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverAppBar(
+                      expandedHeight: 160,
+                      floating: false,
+                      pinned: true,
+                      snap: false,
+                      stretch: true,
+                      flexibleSpace: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return FlexibleSpaceBar(
+                            stretchModes: const [StretchMode.zoomBackground],
+                            background: Container(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    AppColors.doraemonLightBlue,
+                                    AppColors.doraemonBlue,
+                                  ],
+                                ),
+                              ),
+                              child: SafeArea(
+                                bottom: false,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 16,
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      // Greeting
-                                      Text(
-                                        'Welcome back,',
-                                        style: AppTextStyles.bodyLarge.copyWith(
-                                          color: Colors.white.withAlpha(204),
-                                          fontSize: 16,
+                                      // Greeting Section
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // Greeting
+                                            Text(
+                                              'Welcome back,',
+                                              style: AppTextStyles.bodyLarge
+                                                  .copyWith(
+                                                color:
+                                                    Colors.white.withAlpha(204),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              userStats['username'] ??
+                                                  'Learner',
+                                              style: AppTextStyles.headlineLarge
+                                                  .copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 32,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 12),
+                                            // Search Bar
+                                            SearchBarWidget(
+                                              onSearchChanged:
+                                                  provider.searchOnomatopoeia,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        userStats['username'] ?? 'Learner',
-                                        style: AppTextStyles.headlineLarge.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 32,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      // Search Bar
-                                      SearchBarWidget(
-                                        onSearchChanged:
-                                        provider.searchOnomatopoeia,
-                                      ),
+
+                                      // Doraemon Character - Using Image
+                                      _buildDoraemonImage(),
                                     ],
                                   ),
                                 ),
-
-                                // Doraemon Character - Using Image
-                                _buildDoraemonImage(),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-            ];
-          },
-          body: CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              // Main Content
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Quick Stats Section
-                      _buildQuickStats(context, userStats),
-
-                      const SizedBox(height: 24),
-
-                      // Categories Section
-                      _buildCategoriesSection(context, provider),
-
-                      const SizedBox(height: 24),
-
-                      // Featured Section (only show if we have featured items)
-                      if (provider.onomatopoeiaList
-                          .any((item) => item.viewCount > 10))
-                        Column(
+                    ),
+                  ];
+                },
+                body: CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    // Main Content
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 16),
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildFeaturedSection(context, provider),
+                            // Quick Stats Section
+                            _buildQuickStats(context, userStats),
+
+                            const SizedBox(height: 24),
+
+                            // Categories Section
+                            _buildCategoriesSection(context, provider),
+
+                            const SizedBox(height: 24),
+
+                            // Featured Section
+                            if (provider.onomatopoeiaList
+                                .any((item) => item.viewCount > 10))
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildFeaturedSection(context, provider),
+                                  const SizedBox(height: 16),
+                                ],
+                              ),
+
+                            // Results Header
+                            _buildResultsHeader(context, provider),
+
                             const SizedBox(height: 16),
                           ],
                         ),
+                      ),
+                    ),
 
-                      // Results Header
-                      _buildResultsHeader(context, provider),
-
-                      const SizedBox(height: 16),
-                    ],
-                  ),
+                    // Onomatopoeia Grid
+                    SliverPadding(
+                      padding: const EdgeInsets.fromLTRB(24, 0, 24, 160),
+                      sliver: provider.filteredList.isEmpty
+                          ? SliverToBoxAdapter(
+                              child: _buildEmptyContent(context, provider),
+                            )
+                          : SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                                childAspectRatio: 0.85,
+                              ),
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
+                                  final onomatopoeia =
+                                      provider.filteredList[index];
+                                  return _buildCompactOnomatopoeiaCard(
+                                      onomatopoeia, context);
+                                },
+                                childCount: provider.filteredList.length,
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
               ),
-
-              // Onomatopoeia Grid
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 160),
-                sliver: provider.filteredList.isEmpty
-                    ? SliverToBoxAdapter(
-                  child: _buildEmptyContent(context, provider),
-                )
-                    : SliverGrid(
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 0.85,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                      final onomatopoeia =
-                      provider.filteredList[index];
-                      return _buildCompactOnomatopoeiaCard(
-                          onomatopoeia, context);
-                    },
-                    childCount: provider.filteredList.length,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -519,8 +539,8 @@ class _HomePageState extends State<HomePage> {
     return Container(
       margin: const EdgeInsets.only(left: 16, top: 8),
       child: Container(
-        width: 80, // Smaller size
-        height: 80, // Smaller size
+        width: 80,
+        height: 80,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
@@ -538,10 +558,9 @@ class _HomePageState extends State<HomePage> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(40),
           child: Image.asset(
-            'assets/images/doraemon/doraemon.png', // Your Doraemon image path
+            'assets/images/doraemon/doraemon.png',
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
-              // Fallback to simple blue circle if image not found
               return Container(
                 decoration: BoxDecoration(
                   color: AppColors.doraemonBlue,
@@ -549,7 +568,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: const Center(
                   child: Icon(
-                    Icons.pets, // Fallback icon
+                    Icons.pets,
                     color: Colors.white,
                     size: 40,
                   ),
@@ -654,9 +673,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // FIXED: Build categories section with loaded categories
   Widget _buildCategoriesSection(
       BuildContext context, OnomatopoeiaProvider provider) {
-    final categories = provider.getCategories();
+    // Show loading indicator while categories are loading
+    if (!_categoriesLoaded) {
+      return const SizedBox(
+        height: 100,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -679,9 +707,9 @@ class _HomePageState extends State<HomePage> {
           height: 100,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
+            itemCount: _categories.length,
             itemBuilder: (context, index) {
-              final category = categories[index];
+              final category = _categories[index];
               final isSelected = _selectedCategoryIndex == index;
               return Padding(
                 padding: EdgeInsets.only(
@@ -710,13 +738,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       boxShadow: isSelected
                           ? [
-                        BoxShadow(
-                          color:
-                          _getCategoryColor(category).withAlpha(51),
-                          blurRadius: 15,
-                          offset: const Offset(0, 5),
-                        ),
-                      ]
+                              BoxShadow(
+                                color:
+                                    _getCategoryColor(category).withAlpha(51),
+                                blurRadius: 15,
+                                offset: const Offset(0, 5),
+                              ),
+                            ]
                           : null,
                     ),
                     child: Column(
@@ -727,9 +755,9 @@ class _HomePageState extends State<HomePage> {
                           color: isSelected
                               ? _getCategoryColor(category)
                               : Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withAlpha(153),
+                                  .colorScheme
+                                  .onSurface
+                                  .withAlpha(153),
                           size: 32,
                         ),
                         const SizedBox(height: 8),
@@ -742,9 +770,9 @@ class _HomePageState extends State<HomePage> {
                             color: isSelected
                                 ? _getCategoryColor(category)
                                 : Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withAlpha(153),
+                                    .colorScheme
+                                    .onSurface
+                                    .withAlpha(153),
                           ),
                           textAlign: TextAlign.center,
                           maxLines: 2,
@@ -786,7 +814,7 @@ class _HomePageState extends State<HomePage> {
               const Spacer(),
               Container(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: AppColors.doraemonBlue.withAlpha(26),
                   borderRadius: BorderRadius.circular(20),
@@ -872,7 +900,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // FIXED: Overflow error fixed
   Widget _buildCompactOnomatopoeiaCard(
       Onomatopoeia onomatopoeia, BuildContext context) {
     final categoryColor = _getCategoryColor(onomatopoeia.category);
@@ -882,7 +909,7 @@ class _HomePageState extends State<HomePage> {
         _navigateToDetailsPage(context, onomatopoeia);
       },
       child: Container(
-        height: 220, // Fixed height instead of ConstrainedBox
+        height: 220,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
@@ -968,7 +995,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 12),
 
-                  // Meaning Preview - FIXED: Use Flexible instead of Expanded
+                  // Meaning Preview
                   Flexible(
                     child: Text(
                       onomatopoeia.meaning,
@@ -980,7 +1007,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
 
-                  const Spacer(), // Pushes footer to bottom
+                  const Spacer(),
 
                   // Footer
                   Row(
