@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:onomatopoeia_app/core/themes/app_text_styles.dart';
 import 'package:onomatopoeia_app/core/themes/app_colors.dart';
 import 'package:onomatopoeia_app/data/models/onomatopoeia_model.dart';
@@ -21,10 +22,13 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   bool _isPlaying = false;
   bool _isLoadingSound = false;
+  bool _isFavorite = false;
 
   @override
   void initState() {
     super.initState();
+    _isFavorite = widget.onomatopoeia.isFavorite;
+
     // Increment view count when page opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -76,11 +80,68 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
         });
       }
 
-      // Check mounted before showing snackbar
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Could not play audio: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  void _toggleFavorite() {
+    final provider = Provider.of<OnomatopoeiaProvider>(context, listen: false);
+    provider.toggleFavorite(widget.onomatopoeia.id);
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:
+            Text(_isFavorite ? 'Added to favorites' : 'Removed from favorites'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  Future<void> _shareOnomatopoeia() async {
+    final onomatopoeia = widget.onomatopoeia;
+
+    // Create share content
+    final String shareText = '''
+📚 Learn Japanese Onomatopoeia! 🇯🇵
+
+🔊 Word: ${onomatopoeia.japanese} (${onomatopoeia.romaji})
+📖 Meaning: ${onomatopoeia.meaning}
+📂 Category: ${onomatopoeia.category}
+⭐ Difficulty: Level ${onomatopoeia.difficulty}
+
+📝 Example Sentence:
+${onomatopoeia.exampleSentence}
+${onomatopoeia.exampleTranslation.isNotEmpty ? '📌 Translation: ${onomatopoeia.exampleTranslation}' : ''}
+
+${onomatopoeia.usageContext.isNotEmpty ? '💡 Usage: ${onomatopoeia.usageContext}' : ''}
+
+${onomatopoeia.tags.isNotEmpty ? '🏷️ Tags: ${onomatopoeia.tags.join(", ")}' : ''}
+
+━━━━━━━━━━━━━━━━━━━━━
+Download Japanese Onomatopoeia App to learn more!
+    ''';
+
+    try {
+      await Share.share(
+        shareText,
+        subject: 'Learn ${onomatopoeia.japanese} - Japanese Onomatopoeia',
+      );
+      // Success message removed - the share dialog itself is the confirmation
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error sharing: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -116,12 +177,28 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
     final categoryColor = _getCategoryColor(widget.onomatopoeia.category);
 
     return Scaffold(
+      // Only the SliverAppBar with back button
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 300,
+            expandedHeight: 250,
             floating: false,
             pinned: true,
+            backgroundColor: categoryColor,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            // Back button only
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context),
+              tooltip: 'Back',
+            ),
+            title: Text(
+              widget.onomatopoeia.japanese,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            centerTitle: true,
+            // No favorite button in AppBar
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: [
@@ -164,7 +241,7 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header with Japanese and Romaji
+                  // Header with Japanese, Romaji, and Favorite Button (original location)
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -193,24 +270,25 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
                           ],
                         ),
                       ),
-                      // Favorite Button
-                      Consumer<OnomatopoeiaProvider>(
-                        builder: (context, provider, child) {
-                          return IconButton(
-                            onPressed: () {
-                              provider.toggleFavorite(widget.onomatopoeia.id);
-                            },
-                            icon: Icon(
-                              widget.onomatopoeia.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              size: 32,
-                              color: widget.onomatopoeia.isFavorite
-                                  ? Colors.red
-                                  : Theme.of(context).colorScheme.onSurface,
-                            ),
-                          );
-                        },
+                      // Favorite Button in original location
+                      Container(
+                        decoration: BoxDecoration(
+                          color: categoryColor.withAlpha(26),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: IconButton(
+                          onPressed: _toggleFavorite,
+                          icon: Icon(
+                            _isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: _isFavorite ? Colors.red : categoryColor,
+                            size: 28,
+                          ),
+                          tooltip: _isFavorite
+                              ? 'Remove from favorites'
+                              : 'Add to favorites',
+                        ),
                       ),
                     ],
                   ),
@@ -528,6 +606,38 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
           ),
         ],
       ),
+      // Bottom Navigation Bar with Share Button only
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          border: Border(
+            top: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: 1,
+            ),
+          ),
+        ),
+        child: SafeArea(
+          child: ElevatedButton.icon(
+            onPressed: _shareOnomatopoeia,
+            icon: const Icon(Icons.share),
+            label: const Text(
+              'Share this word',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              backgroundColor: categoryColor,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 2,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -557,7 +667,6 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
   Widget _buildImageSection(BuildContext context, Color categoryColor) {
     final imagePath = widget.onomatopoeia.imagePath;
 
-    // If no image path is provided or it's empty, show icon
     if (imagePath.isEmpty) {
       return Center(
         child: Icon(
@@ -568,19 +677,15 @@ class _OnomatopoeiaDetailsPageState extends State<OnomatopoeiaDetailsPage> {
       );
     }
 
-    // Try to load the image with error handling
     return Image.asset(
       imagePath,
       fit: BoxFit.cover,
       width: double.infinity,
       height: double.infinity,
       errorBuilder: (context, error, stackTrace) {
-        // Log the error for debugging
         if (kDebugMode) {
           print('Error loading image: $imagePath - $error');
         }
-
-        // If image fails to load, show icon
         return Center(
           child: Icon(
             _getCategoryIcon(widget.onomatopoeia.category),
