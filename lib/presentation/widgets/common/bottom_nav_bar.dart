@@ -21,10 +21,15 @@ class BottomNavBar extends StatelessWidget {
           selectedIcon: Icon(Icons.home),
           label: 'Home',
         ),
+        // NavigationDestination(
+        //   icon: Icon(Icons.explore_outlined),
+        //   selectedIcon: Icon(Icons.explore),
+        //   label: 'Explore',
+        // ),
         NavigationDestination(
-          icon: Icon(Icons.explore_outlined),
-          selectedIcon: Icon(Icons.explore),
-          label: 'Explore',
+          icon: Icon(Icons.category_outlined),
+          selectedIcon: Icon(Icons.category),
+          label: 'Categories',
         ),
         NavigationDestination(
           icon: Icon(Icons.library_books_outlined),

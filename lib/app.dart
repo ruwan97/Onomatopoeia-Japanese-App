@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onomatopoeia_app/presentation/pages/category_page.dart';
 import 'package:provider/provider.dart';
 import 'package:onomatopoeia_app/core/themes/app_theme.dart';
 import 'package:onomatopoeia_app/core/themes/theme_provider.dart';
@@ -53,7 +54,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const ExplorePage(),
+    // const ExplorePage(),
+    const CategoryPage(),
     const LibraryPage(),
     const QuizMenuPage(),
     const ProfilePage(),
